@@ -1,55 +1,43 @@
-//display list of posts as cards
-//each card will include: titile, excerpt (maybe image)
-//card will have a button to "read more" that will render full blog post (PostDetail.jsx)
 import React, { useState, useEffect } from 'react';
-import PostDetails from './PostDetail';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
-    //state management
-    const [posts, setPosts] = useState([]);
-    const [selectedPost, setSelectedPost] = useState(null);
+  const [featuredPost, setFeaturedPost] = useState(null);
 
-    // Fetch posts on page load
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch(`http://localhost:8181/api/posts`);
-                const data = await response.json();
-                setPosts(data);
-            } catch (error) {
-                console.error('Error fetching posts:', error.message);
-                throw error;
-            }
-        };
-        fetchPosts();
-    }, []);
+  // Fetch the featured post 
+  useEffect(() => {
+    const fetchFeaturedPost = async () => {
+      try {
+        const response = await fetch('http://localhost:8181/api/posts');
+        const data = await response.json();
 
-    //handle read more button
-    const handleReadMore = (post) => {
-        setSelectedPost(post.id)
-    }
+        setFeaturedPost(data[0]);
+      } catch (error) {
+        console.error('Error fetching featured post:', error.message);
+      }
+    };
 
-    return (
-        <div>
-        {!selectedPost ? (
-            posts.map((post) => (
-                <ul key={post.id}>
-                    <li>
-                        <p>{post.title}</p>
-                        <p>{post.author}</p>
-                        <button onClick={() => handleReadMore(post)}>
-                            Read More
-                        </button>
-                    </li>
-                </ul>
-            ))
-        ) : (
-            <PostDetails 
-            selectedPost={selectedPost}
-            goBack={() => setSelectedPost(null)} />
-        )}
+    fetchFeaturedPost();
+  }, []);
+
+  //make sure post is fetched before trying to render
+  if (!featuredPost) {
+    return <p>Loading featured post...</p>;
+  }
+
+  return (
+    <div className="landing-page">
+      <h1>Welcome!</h1>
+      <div className="featured-post">
+        <h2>Featured Post: {featuredPost.title}</h2>
+        <p>By {featuredPost.author}</p>
+        <p>{featuredPost.content.substring(0, 100)}...</p> {/* Display excerpt */}
+        <Link to={`/posts/${featuredPost.id}`}>Read Full Post</Link>
+      </div>
+
+    
     </div>
-    )
+  );
 };
 
 export default LandingPage;

@@ -1,10 +1,9 @@
-//use post id to associate comments with correct post
-//comment text
-//button to add comment 
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 
 const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
+const [newComment, setNewComment] = useState('')
+const [newAuthor, setNewAuthor] = useState('')
 
     useEffect(() => {
         const fetchCommentsByPostId = async () => {
@@ -17,7 +16,6 @@ const [comments, setComments] = useState([])
               } else {
                 console.error("There are not comments for this post", data);
               }
-          
           } catch (error) {
             console.error('Error fetching comments:', error.message);
             throw error;
@@ -29,6 +27,34 @@ const [comments, setComments] = useState([])
         }
       }, [selectedPost]);
     
+       // Handle adding a new comment
+  const handleAddComment = async () => {
+    if (!newComment || !newAuthor) {
+      alert("Both comment and author are required.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8181/api/posts/${selectedPost}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: newComment, author: newAuthor }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add comment');
+      }
+
+      const newCommentData = await response.json();
+      setComments((prevComments) => [...prevComments, newCommentData]);
+      setNewComment(''); // Clear comment field
+      setNewAuthor(''); // Clear author field
+    } catch (error) {
+      console.error('Error adding comment:', error.message);
+    }
+  };
 
     return (
         <div>
@@ -50,8 +76,20 @@ const [comments, setComments] = useState([])
   
             {/* Add Comment Section */}
             <div>
-        
-            </div>
+            <h4>Add a Comment</h4>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Write your comment"
+            />
+            <input
+              type="text"
+              value={newAuthor}
+              onChange={(e) => setNewAuthor(e.target.value)}
+              placeholder="Your name"
+            />
+            <button onClick={handleAddComment}>Add Comment</button>
+          </div>
           </>
         ) : (
           <p>Select a post to see comments.</p>

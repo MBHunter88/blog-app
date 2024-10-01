@@ -1,17 +1,16 @@
-//full blog post content tied to blog post id
-//comments 
-//a button to read post aloud (text-to-speech)
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Comments from './Comments';
 
-const PostDetails = ({ selectedPost, goBack }) => {
+const PostDetails = () => {
+    const { postId } = useParams();
 const [postById, setPostById] = useState({});
 
   // Fetch details for the selected post
   useEffect(() => {
     const fetchPostById = async () => {
       try {
-        const response = await fetch(`http://localhost:8181/api/posts/${selectedPost}`);
+        const response = await fetch(`http://localhost:8181/api/posts/${postId}`);
         const data = await response.json();
         console.log('Fetched post by ID:', data);
         setPostById(data);
@@ -21,10 +20,10 @@ const [postById, setPostById] = useState({});
       }
     };
 
-    if (selectedPost) {
+    if (postId) {
         fetchPostById();
     }
-  }, [selectedPost]);
+  }, [postId]);
 
 
 
@@ -35,9 +34,9 @@ const [postById, setPostById] = useState({});
               <h2>{postById.title}</h2>
               <p><strong>Author:</strong> {postById.author}</p>
               <p>{postById.content}</p>
-              <button onClick={goBack}>Return Home</button>
+              <button>Read Post Aloud</button>
             </div>
-            <div><Comments selectedPost={selectedPost}/></div>
+            <div><Comments selectedPost={postId}/></div>
         </>
     )
 }
