@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from "dotenv";
-import OpenAI from 'openai/index.mjs';
+import OpenAI from "openai";
 import pkg from 'pg';
 
 //use .env for variables
@@ -16,13 +16,16 @@ const db = new Pool({
 //initiallize express app
 const app = express();
 
-const openai = new OpenAI();
+// Initialize OpenAI API with API key
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY, // Ensure this is in your .env file
+});
 
 const PORT = process.env.PORT;
 
 //config cors middleware
 app.use(cors());
-
+app.use(express.json());
 
 //READ posts
 app.get('/api/posts', async (req, res) => {
@@ -96,10 +99,60 @@ app.post('/api/posts', async (req, res) => {
 
 
 
+// AI moderation for comments
+app.post('/api/posts/:postId/comments', async (req, res) => {
+    const { content, author } = req.body;
+    const { postId } = req.params;
+
+    // Validate input
+    if (!content || !author) {
+        return res.status(400).json({ error: 'Content and author are required.' });
+    }
+
+    try {
+        // Send content to OpenAI's Moderation API
+        // const moderation = await openai.moderations.create({
+        //     input: content,
+        // });
+
+           // Mock OpenAI moderation response for development
+           const moderation = {
+            results: [{ flagged: false }] //no flagging for now
+        };
+
+        //  Check moderation response
+        const flagged = moderation.results[0].flagged; // Check if content is flagged
+
+        if (flagged) {
+            return res.status(400).json({ error: 'Comment contains inappropriate content and was flagged.' });
+        }
+
+        //  If not flagged, insert comment into the database
+        const result = await db.query(
+            'INSERT INTO comments (post_id, content, author) VALUES ($1, $2, $3) RETURNING *',
+            [postId, content, author]
+        );
+
+        // Return the newly created comment
+        res.status(201).json(result.rows[0]);
+
+    } catch (error) {
+        console.error('Error creating comment:', error);
+        res.status(500).json({
+            error: 'Failed to create comment',
+            message: error.message,
+            operation: 'POST /api/posts/:postId/comments'
+        });
+    }
+});
+
+
+
 
 
 
 app.listen(PORT, () => console.log(`Server is runnning on port http://localhost:${PORT}`))
+
 
 
 export default app;
