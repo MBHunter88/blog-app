@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import OpenAI from "openai";
 import pkg from 'pg';
+import fetch from 'node-fetch';
 
 //use .env for variables
 dotenv.config();
@@ -97,8 +98,34 @@ app.post('/api/posts', async (req, res) => {
     }
 });
 
+// READ comments by post_id
+app.get('/api/comments/:postId', async (req, res) => {
+    const { postId } = req.params;
 
+    try {
+        // Log the postId to verify it's being received correctly
+        console.log('Fetching comments with post_id:', postId);
 
+        const { rows } = await db.query('SELECT * FROM comments WHERE post_id = $1', [postId]);
+
+        // Check if no rows are returned
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Comments not found' });
+        }
+
+        res.json(rows);
+
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        res.status(500).json({
+            error: 'Failed to fetch the comments',
+            message: error.message,
+            operation: 'GET /api/comments/:postId'
+        });
+    }
+});
+
+//TODO: Check if original enpoint works once openai servers are back up 
 // AI moderation for comments
 app.post('/api/posts/:postId/comments', async (req, res) => {
     const { content, author } = req.body;
@@ -110,8 +137,11 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
     }
 
     try {
+        console.log(content)
+       
         // Send content to OpenAI's Moderation API
         // const moderation = await openai.moderations.create({
+        //     model: "omni-moderation-latest",
         //     input: content,
         // });
 
@@ -147,6 +177,55 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
 });
 
 
+//alternative request set up 
+// AI moderation for comments
+// app.post('/api/posts/:postId/comments', async (req, res) => {
+//     const { content, author } = req.body;
+//     const { postId } = req.params;
+
+//     if (!content || !author) {
+//         return res.status(400).json({ error: 'Content and author are required.' });
+//     }
+
+//     try {
+//         // Step 1: Moderate the comment using the OpenAI Moderation API
+//         const moderationResponse = await fetch('https://api.openai.com/v1/moderations', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+//             },
+//             body: JSON.stringify({ input: content }),
+//         });
+
+//         if (!moderationResponse.ok) {
+//             throw new Error('Failed to call OpenAI Moderation API');
+//         }
+
+//         const moderationData = await moderationResponse.json();
+//         const flagged = moderationData.results[0].flagged;
+
+//         if (flagged) {
+//             return res.status(400).json({ error: 'Comment contains inappropriate content and was flagged.' });
+//         }
+
+//         // Step 2: If not flagged, insert comment into the database
+//         const result = await db.query(
+//             'INSERT INTO comments (post_id, content, author) VALUES ($1, $2, $3) RETURNING *',
+//             [postId, content, author]
+//         );
+
+//         res.status(201).json(result.rows[0]);
+
+//     } catch (error) {
+//         console.error('Error creating comment:', error);
+//         res.status(500).json({
+//             error: 'Failed to create comment',
+//             message: error.message,
+//             operation: 'POST /api/posts/:postId/comments'
+//         });
+//     }
+// });
 
 
 
