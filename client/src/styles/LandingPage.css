@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Shadows+Into+Light&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+.nothing-you-could-do-regular {
+  font-family: "Nothing You Could Do", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.source-code-pro{
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .landing-page {
   position: relative;
   width: 100vw;
@@ -72,36 +94,52 @@
   opacity: 0.2;
 }
 
-.featured-post {
-  background-color: #fff;
-  border: 1px solid #ccc;
+.welcome-msg {
+  background-color: #f8e6d9;
+  border: 1px solid #cccccc;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 50%;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: auto;
+  min-height: max-content;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.featured-post h2 {
+.welcome-msg h2 {
+ 
   font-size: 28px;
   color: #555;
+  padding-top: 50px;
+  text-align: center;
+  margin: auto;
+  margin-top:50px;
+  max-width: 80%;
 }
 
-.featured-post p {
-  font-size: 16px;
-  color: #666;
+.welcome-msg p {
+  font-family: "Shadows Into Light";
+  font-weight: 800;
+  font-size: 20px;
+  color: #464443;
+  max-width: 80%;
+  text-align: center;
+  margin: auto;
+  padding-top: 20px;
+  margin-bottom:50px;
+  padding-bottom: 50px;
 }
 
-.featured-post a {
-  display: inline-block;
+.welcome-msg a {
+ margin: auto;
+ text-align: center;
   margin-top: 15px;
-  color: #3498db;
+  color: #13729a;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.featured-post a:hover {
+.welcome-msg a:hover {
   color: #2980b9;
   text-decoration: underline;
 }
