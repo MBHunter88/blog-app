@@ -42,7 +42,7 @@ const BlogPosts = () => {
                   <h2 className="post-title">{post.title}</h2>
                   <p className="post-author">By {post.author}</p>
                   <Link to={`/posts/${post.id}`} className="read-more">Read More</Link><br/>
-                  <button onClick={() => deletePost(post.id)} className="delete-button">Delete</button>
+                  <button className="delete-button" onClick={() => deletePost(post.id)} >Delete</button>
               </li>
           ))}
       </ul>

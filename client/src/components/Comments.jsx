@@ -78,7 +78,7 @@ const deleteComment = async (commentId, postId) => {
                     <p>{comment.content}</p>
                     <p><strong>Author:</strong> {comment.author}</p>
                   </li>
-                  <button className="delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete Comment</button>
+                  <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete Comment</button>
                 </ul>
               ))
             ) : (
