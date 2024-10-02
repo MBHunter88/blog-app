@@ -50,13 +50,28 @@ const [isExpanded, setIsExpanded] = useState(false);
       }
 
       const newCommentData = await response.json();
+
+      //if comment was flagged by ai moderation show alert message and don't post
+      if (newCommentData.flagged) {
+        alert('Your comment was flagged as inappropriate and cannot be posted.');
+        return; 
+      } else {
+
       setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment(''); // Clear comment field
       setNewAuthor(''); // Clear author field
+      }
     } catch (error) {
       console.error('Error adding comment:', error.message);
     }
   };
+
+  //get sentiment score
+  const getSentimentColor = (score) => {
+    if (score > 0) return 'green'
+    if (score < 0) return 'red'
+    return 'gray';
+  }
 
 //delete comment
 const deleteComment = async (commentId, postId) => {
@@ -89,8 +104,8 @@ const deleteComment = async (commentId, postId) => {
               comments.map((comment) => (
                 <ul key={comment.id} className="comment-item">
                   <li>
-                    <p className="comment-content">{comment.content}</p>
-                    <p className="comment-author"><strong>Author:</strong> {comment.author}</p>
+                    <p style={{ color: getSentimentColor(comment.sentiment_score)}}>{comment.content}</p>
+                    <p><strong>Author:</strong> {comment.author}</p>
                   </li>
                   <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete</button>
                 </ul>

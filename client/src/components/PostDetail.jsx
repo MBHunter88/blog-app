@@ -36,6 +36,7 @@ const handleGenerateSpeech = async () => {
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioUrl(audioUrl);
+        console.log("Audio URL: ", audioUrl);
       } else {
         console.error('Error generating speech:', response.statusText);
       }
