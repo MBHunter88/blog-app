@@ -35,7 +35,7 @@ const BlogPosts = () => {
    
     return (
       <div className="blog-posts-page">
-      <h1 className="page-title">Blog Posts</h1>
+      <h1 className="page-title">Latest Posts</h1>
       <ul className="posts-list">
           {posts.map((post) => (
               <li key={post.id} className="post-item">

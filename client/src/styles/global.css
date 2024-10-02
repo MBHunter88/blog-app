@@ -1,0 +1,20 @@
+/* variables.css */
+
+:root {
+    /* Primary Colors */
+    --primary-bg: #f8e6d9;
+    --primary-text: #333;
+    --secondary-text: #888;
+    --accent-color: #13729a;
+    --accent-hover: #0056b3;
+  
+    /* Button Colors */
+    --button-bg: #f5bcb5;
+    --main-button-bg: #13729a;
+    --button-hover-bg: #c0685e;
+    --button-text: white;
+  
+    /* Shadows */
+    --box-shadow: rgba(0, 0, 0, 0.1);
+  }
+  

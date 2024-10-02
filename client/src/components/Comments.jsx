@@ -5,6 +5,7 @@ const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
 const [newComment, setNewComment] = useState('')
 const [newAuthor, setNewAuthor] = useState('')
+const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         const fetchCommentsByPostId = async () => {
@@ -56,6 +57,7 @@ const [newAuthor, setNewAuthor] = useState('')
       console.error('Error adding comment:', error.message);
     }
   };
+
 //delete comment
 const deleteComment = async (commentId, postId) => {
     try {
@@ -66,49 +68,61 @@ const deleteComment = async (commentId, postId) => {
     }
   };
 
-    return (
-        <div className="comments-section">
-        {selectedPost ? (
+  //toggle comment section
+  const toggleComments = () => {
+    setIsExpanded(!isExpanded)
+  }
+
+  return (
+    <div className="comments-section">
+      {/* Toggle Button */}
+      <button className="toggle-comments-button" onClick={toggleComments}>
+        {isExpanded ? 'Hide Comments' : 'View Comments'}
+      </button>
+  
+      {/* Collapsible Comments Container */}
+      <div className={`comments-container ${isExpanded ? 'expanded' : 'collapsed'}`}>
+        {selectedPost && isExpanded ? (
           <>
             <h3>Comments</h3>
             {comments.length > 0 ? (
               comments.map((comment) => (
                 <ul key={comment.id} className="comment-item">
                   <li>
-                    <p>{comment.content}</p>
-                    <p><strong>Author:</strong> {comment.author}</p>
+                    <p className="comment-content">{comment.content}</p>
+                    <p className="comment-author"><strong>Author:</strong> {comment.author}</p>
                   </li>
-                  <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete Comment</button>
+                  <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete</button>
                 </ul>
               ))
             ) : (
               <p>No comments yet.</p>
             )}
-  
-            {/* Add Comment Section */}
-            <div className="add-comment">
-              <h4>Add a Comment</h4>
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Write your comment"
-                className="comment-input"
-              />
-              <input
-                type="text"
-                value={newAuthor}
-                onChange={(e) => setNewAuthor(e.target.value)}
-                placeholder="Your name"
-                className="author-input"
-              />
-              <button className="add-button" onClick={handleAddComment}>Add Comment</button>
-            </div>
           </>
-        ) : (
-          <p>Select a post to see comments.</p>
-        )}
+        ) : null}
       </div>
-    )
+  
+      {/* Add Comment Section (always visible) */}
+      <div className="add-comment">
+        <h4>Add a Comment</h4>
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Write your comment here"
+          className="comment-input"
+        />
+        <input
+          type="text"
+          value={newAuthor}
+          onChange={(e) => setNewAuthor(e.target.value)}
+          placeholder="Your name"
+          className="author-input"
+        />
+        <button className="add-button" onClick={handleAddComment}>Add Comment</button>
+      </div>
+    </div>
+  );
+  
 }
 
 export default Comments

@@ -1,49 +1,89 @@
+
+
 .post-details-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 40px auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 40px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.post-details-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+.post-title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: "Source Code Pro", monospace; /* Match font style from other pages */
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+
+.post-author {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 15px;
+  font-family: "Shadows Into Light", cursive;
+  text-align: center;
+}
+
+
+.post-content {
+  font-size: 20px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  text-align: justify;
+  font-family: "Source Code Pro", monospace; /* Font consistency */
+}
+
+
+.speech-button {
+  background-color:var(--main-button-bg);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+
+.speech-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+
+.audio-player {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Add subtle animation to the appearance of the card */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
   }
-  
-  .post-title {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
+  to {
+      opacity: 1;
+      transform: translateY(0);
   }
-  
-  .post-author {
-    font-size: 16px;
-    color: #888;
-    margin-bottom: 10px;
-  }
-  
-  .post-content {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-  
-  .speech-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .speech-button:hover {
-    background-color: #2980b9;
-  }
-  
-  .audio-player {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
+}
+
+.post-details-card {
+  animation: fadeIn 0.8s ease-out;
+}

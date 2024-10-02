@@ -1,9 +1,59 @@
 .comments-section {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  margin: 30px auto;
+  max-width: 800px;
+  }
+
+  .toggle-comments-button {
+    background-color: var(--main-button-bg);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .toggle-comments-button:hover {
+    background-color: #2980b9;
+  }
+
+  .comments-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .comments-container.expanded {
+    max-height: 500px; 
+    transition: max-height 0.5s ease-in-out;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
+
+  .comments-container::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .comments-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .comments-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-bg); 
+    border-radius: 10px; 
+    border: 2px solid #f1f1f1; 
+  }
+  
+  .comments-container::-webkit-scrollbar-thumb:hover {
+    background-color: #2980b9; 
   }
   
   .comments-section h3 {
@@ -19,15 +69,28 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: relative;
+    transition: box-shadow 0.2s ease;
   }
   
-  .comment-item p {
+
+  .comment-content {
     font-size: 16px;
-    color: #333;
-  }
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    text-align: justify;
+    font-family: "Source Code Pro", monospace;
+}
+
+.comment-author {
+  font-size: 14px;
+  color: #888;
+  font-family: "Shadows Into Light", cursive;
+  text-align: right;
+}
   
   .comments-delete-button {
-    background-color: #e74c3c;
+    background-color: #d98d85;
     color: white;
     padding: 8px 12px;
     border: none;
@@ -44,16 +107,19 @@
   }
   
   .add-comment {
-    margin-top: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
   }
   
   .add-comment h4 {
+    font-family: "Source Code Pro", monospace;
     font-size: 20px;
     margin-bottom: 10px;
   }
   
   .comment-input, .author-input {
-    width: 100%;
+    width: 97%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -67,7 +133,7 @@
   }
   
   .add-button {
-    background-color: #3498db;
+    background-color: var(--main-button-bg);
     color: white;
     padding: 10px 15px;
     border: none;

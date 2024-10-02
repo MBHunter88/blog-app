@@ -1,10 +1,11 @@
 import React from 'react';
+
 import '../styles/AboutPage.css'; 
 
 const About = () => {
   return (
     <div className="about-page">
-      <h1>About This Blog</h1>
+      <h1>About Me... </h1>
       <div className="about-content">
         <div className="about-text">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet consectetur mi. Nam auctor dolor a odio dictum,
@@ -18,9 +19,29 @@ const About = () => {
         </div>
         <div className="about-image">
           {/* Placeholder for the image */}
-          <img src="your-image-url.jpg" alt="About us" />
+          <img src="./headshot.jpg" alt="headshot" />
         </div>
       </div>
+      <div>
+        <h3>Let's Connect!</h3>
+        <p></p>
+        {/* 
+        TODO: create database to post contact details
+        <form>
+          <label className="name">Name: </label>
+          <input name="name" id="name" placeholder="John Doe" />
+          <label className="email">Email: </label>
+          <input name="email" id="email" placeholder="email@example.com" />
+          <label className="phone">Phone: </label>
+          <input name="phone" id="phone" placeholder="123-456-7890" />
+         
+        </form> */}
+      </div>
+      <div className="social-icons">
+          <a href="https://www.linkedin.com/in/michelle-bedfordhunter" target="_blank" rel="noopener noreferrer" className="linkedin-icon">
+          <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+        </div>
     </div>
   );
 };

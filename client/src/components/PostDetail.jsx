@@ -50,7 +50,7 @@ const handleGenerateSpeech = async () => {
 
 
     return (
-        <>
+        <div className='post-detail-container'>
        <div className="post-details-card">
         <h2 className="post-title">{postById.title}</h2>
         <p className="post-author"><strong>Author:</strong> {postById.author}</p>
@@ -65,7 +65,7 @@ const handleGenerateSpeech = async () => {
       <div>
         <Comments selectedPost={postId} />
       </div>
-        </>
+        </div>
     )
 }
 
