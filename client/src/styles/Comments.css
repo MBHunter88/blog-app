@@ -1,0 +1,83 @@
+.comments-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comments-section h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .comment-item {
+    list-style-type: none;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+  }
+  
+  .comment-item p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .delete-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transition: background-color 0.2s;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  
+  .add-comment {
+    margin-top: 30px;
+  }
+  
+  .add-comment h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .comment-input, .author-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .comment-input {
+    height: 100px;
+    resize: none;
+  }
+  
+  .add-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-button:hover {
+    background-color: #2980b9;
+  }
+  

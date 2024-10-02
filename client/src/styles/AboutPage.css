@@ -1,0 +1,44 @@
+
+.about-page {
+    padding: 50px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .about-page h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .about-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px; /* Space between text and image */
+  }
+  
+  .about-text {
+    max-width: 600px;
+    text-align: left;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .about-image img {
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Adjust for smaller screens */
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+    }
+  
+    .about-text, .about-image img {
+      text-align: center;
+    }
+  }
+  

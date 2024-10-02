@@ -1,4 +1,5 @@
  import React, { useEffect, useState } from "react";
+ import '../styles/Comments.css'
 
 const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
@@ -66,18 +67,18 @@ const deleteComment = async (commentId, postId) => {
   };
 
     return (
-        <div>
+        <div className="comments-section">
         {selectedPost ? (
           <>
             <h3>Comments</h3>
             {comments.length > 0 ? (
               comments.map((comment) => (
-                <ul key={comment.id}>
+                <ul key={comment.id} className="comment-item">
                   <li>
                     <p>{comment.content}</p>
                     <p><strong>Author:</strong> {comment.author}</p>
                   </li>
-                  <button onClick={() => deleteComment(comment.id) }>Delete Comment</button>
+                  <button className="delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete Comment</button>
                 </ul>
               ))
             ) : (
@@ -85,21 +86,23 @@ const deleteComment = async (commentId, postId) => {
             )}
   
             {/* Add Comment Section */}
-            <div>
-            <h4>Add a Comment</h4>
-            <textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Write your comment"
-            />
-            <input
-              type="text"
-              value={newAuthor}
-              onChange={(e) => setNewAuthor(e.target.value)}
-              placeholder="Your name"
-            />
-            <button onClick={handleAddComment}>Add Comment</button>
-          </div>
+            <div className="add-comment">
+              <h4>Add a Comment</h4>
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="Write your comment"
+                className="comment-input"
+              />
+              <input
+                type="text"
+                value={newAuthor}
+                onChange={(e) => setNewAuthor(e.target.value)}
+                placeholder="Your name"
+                className="author-input"
+              />
+              <button className="add-button" onClick={handleAddComment}>Add Comment</button>
+            </div>
           </>
         ) : (
           <p>Select a post to see comments.</p>

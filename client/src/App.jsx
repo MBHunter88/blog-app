@@ -5,6 +5,7 @@ import BlogPosts from './components/BlogPosts';
 import PostDetail from './components/PostDetail';
 import About from './components/About';
 import Navbar from './components/Navbar'; // Navigation bar component
+import './App.css'
 
 const App = () => {
   return (
