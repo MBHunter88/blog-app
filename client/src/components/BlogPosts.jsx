@@ -28,6 +28,12 @@ const BlogPosts = () => {
       setPosts((prevPosts) => [...prevPosts, newPost]); 
     };
 
+    // Delete post
+    const deletePost = async (postId) => {
+      await fetch(`http://localhost:8181/posts/${postId}`, { method: 'DELETE' });
+      setPosts(posts.filter(post => post.id !== postId));
+  }
+ 
    
     return (
         <div>
@@ -37,7 +43,8 @@ const BlogPosts = () => {
           <li key={post.id}>
             <h2>{post.title}</h2>
             <p>By {post.author}</p>
-            <Link to={`/posts/${post.id}`}>Read More</Link>
+            <Link to={`/posts/${post.id}`}>Read More</Link><br/>
+            <button onClick={() => deletePost(post.id)}>Delete</button>
           </li>
         ))}
       </ul>

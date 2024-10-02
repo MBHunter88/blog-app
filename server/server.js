@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import OpenAI from "openai";
 import pkg from 'pg';
-import fetch from 'node-fetch';
+import fs from "fs";
+import path from "path";
 
 //use .env for variables
 dotenv.config();
@@ -21,6 +22,7 @@ const app = express();
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // Ensure this is in your .env file
 });
+const speechFile = path.resolve("./speech.mp3");
 
 const PORT = process.env.PORT;
 
@@ -125,6 +127,21 @@ app.get('/api/comments/:postId', async (req, res) => {
     }
 });
 
+//DELETE post by id
+app.delete('/api/posts/:postId', async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        await db.query('DELETE FROM posts WHERE id=$1', [postId]);
+        console.log("From the delete request-url", postId);
+        res.json({ message: 'Post deleted successfully' });
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({  error: 'Something went wrong, please try again.' });
+
+    }
+});
+
+
 //TODO: Check if original enpoint works once openai servers are back up 
 // AI moderation for comments
 app.post('/api/posts/:postId/comments', async (req, res) => {
@@ -176,8 +193,58 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
     }
 });
 
+//DELETE comment by id
+app.delete('/api/posts/:postId/comments/:commentId', async (req, res) => {
+    try {
+        const { commentId } = req.params;
+        await db.query('DELETE FROM comments WHERE id=$1', [commentId]);
+        console.log("From the delete request-url", commentId);
+        res.json({ message: 'Comment deleted successfully' });
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({  error: 'Something went wrong, please try again.' });
 
-//alternative request set up 
+    }
+});
+
+// Text-to-Speech for a specific blog post by postId
+app.get('/api/posts/:postId/speech', async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+        // Step 1: Fetch the blog post from the database by ID
+        const { rows } = await db.query('SELECT content FROM posts WHERE id = $1', [postId]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        const postContent = rows[0].content;
+
+        // Step 2: Call OpenAI's Text-to-Speech API
+        const response = await openai.audio.speech.create({
+            model: 'tts-1', 
+            voice: "alloy",
+            input: postContent, 
+        });
+
+        const audioData = response.data.audio_content;
+
+        // Step 3: Send the audio content back to the client
+        res.set({
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': audioData.length,
+        });
+
+        res.send(Buffer.from(audioData, 'base64'));
+    } catch (error) {
+        console.error('Error generating speech for post:', error.message);
+        res.status(500).json({ error: 'Failed to generate speech' });
+    }
+});
+
+
+//TODO: alternative request set up 
 // AI moderation for comments
 // app.post('/api/posts/:postId/comments', async (req, res) => {
 //     const { content, author } = req.body;

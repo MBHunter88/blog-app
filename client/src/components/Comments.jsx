@@ -55,6 +55,15 @@ const [newAuthor, setNewAuthor] = useState('')
       console.error('Error adding comment:', error.message);
     }
   };
+//delete comment
+const deleteComment = async (commentId, postId) => {
+    try {
+      await fetch(`http://localhost:8181/api/posts/${postId}/comments/${commentId}`, { method: 'DELETE' });
+      setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
 
     return (
         <div>
@@ -68,6 +77,7 @@ const [newAuthor, setNewAuthor] = useState('')
                     <p>{comment.content}</p>
                     <p><strong>Author:</strong> {comment.author}</p>
                   </li>
+                  <button onClick={() => deleteComment(comment.id) }>Delete Comment</button>
                 </ul>
               ))
             ) : (

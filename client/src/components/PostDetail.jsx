@@ -5,6 +5,7 @@ import Comments from './Comments';
 const PostDetails = () => {
     const { postId } = useParams();
 const [postById, setPostById] = useState({});
+const [audioUrl, setAudioUrl] = useState(null);
 
   // Fetch details for the selected post
   useEffect(() => {
@@ -25,7 +26,26 @@ const [postById, setPostById] = useState({});
     }
   }, [postId]);
 
+// Function to generate speech for the post content
+const handleGenerateSpeech = async () => {
+    try {
+      const response = await fetch(`http://localhost:8181/api/posts/${postId}/speech`);
 
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioUrl(audioUrl);
+      } else {
+        console.error('Error generating speech:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  if (!postId) {
+    return <p>Loading post...</p>;
+  }
 
 
     return (
@@ -34,7 +54,12 @@ const [postById, setPostById] = useState({});
               <h2>{postById.title}</h2>
               <p><strong>Author:</strong> {postById.author}</p>
               <p>{postById.content}</p>
-              <button>Read Post Aloud</button>
+              <button onClick={handleGenerateSpeech} >Read Post Aloud</button>
+              {audioUrl && (
+        <div>
+          <audio controls src={audioUrl}></audio>
+        </div>
+        )}
             </div>
             <div><Comments selectedPost={postId}/></div>
         </>
