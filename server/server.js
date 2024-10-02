@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import pkg from 'pg';
 import fs from "fs";
 import path from "path";
+import Sentiment from 'sentiment';
 
 //use .env for variables
 dotenv.config();
@@ -17,6 +18,8 @@ const db = new Pool({
 
 //initiallize express app
 const app = express();
+
+const sentiment = new Sentiment()
 
 // Initialize OpenAI API with API key
 const openai = new OpenAI({
@@ -143,7 +146,7 @@ app.delete('/api/posts/:postId', async (req, res) => {
 
 
 //TODO: Check if original enpoint works once openai servers are back up 
-// AI moderation for comments
+// AI moderation and sentiment analysis for comments
 app.post('/api/posts/:postId/comments', async (req, res) => {
     const { content, author } = req.body;
     const { postId } = req.params;
@@ -154,7 +157,12 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
     }
 
     try {
-        console.log(content)
+        const sentimentResult = sentiment.analyze(content);
+    console.log('Sentiment Score:', sentimentResult.score);
+
+    if (sentimentResult.score < -5) {
+        return res.status(400).json({ error: 'Comment is too negative' });
+      }
        
         // Send content to OpenAI's Moderation API
         // const moderation = await openai.moderations.create({
@@ -176,8 +184,8 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
 
         //  If not flagged, insert comment into the database
         const result = await db.query(
-            'INSERT INTO comments (post_id, content, author) VALUES ($1, $2, $3) RETURNING *',
-            [postId, content, author]
+            'INSERT INTO comments (post_id, content, author, sentiment_score) VALUES ($1, $2, $3, $4) RETURNING *',
+            [postId, content, author, sentimentResult.score]
         );
 
         // Return the newly created comment
@@ -206,6 +214,8 @@ app.delete('/api/posts/:postId/comments/:commentId', async (req, res) => {
 
     }
 });
+
+
 
 // Text-to-Speech for a specific blog post by postId
 app.get('/api/posts/:postId/speech', async (req, res) => {

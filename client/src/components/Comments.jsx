@@ -55,6 +55,14 @@ const [newAuthor, setNewAuthor] = useState('')
       console.error('Error adding comment:', error.message);
     }
   };
+
+  //get sentiment score
+  const getSentimentColor = (score) => {
+    if (score > 0) return 'green'
+    if (score < 0) return 'red'
+    return 'gray';
+  }
+
 //delete comment
 const deleteComment = async (commentId, postId) => {
     try {
@@ -74,7 +82,7 @@ const deleteComment = async (commentId, postId) => {
               comments.map((comment) => (
                 <ul key={comment.id}>
                   <li>
-                    <p>{comment.content}</p>
+                    <p style={{ color: getSentimentColor(comment.sentiment_score)}}>{comment.content}</p>
                     <p><strong>Author:</strong> {comment.author}</p>
                   </li>
                   <button onClick={() => deleteComment(comment.id) }>Delete Comment</button>
