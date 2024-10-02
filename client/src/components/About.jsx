@@ -38,7 +38,11 @@ const About = () => {
         </form> */}
       </div>
       <div className="social-icons">
-          <a href="https://www.linkedin.com/in/michelle-bedfordhunter" target="_blank" rel="noopener noreferrer" className="linkedin-icon">
+          <a href="https://www.linkedin.com/in/michelle-bedfordhunter" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="linkedin-icon"
+          aria-label="LinkedIn">
           <ion-icon name="logo-linkedin"></ion-icon>
           </a>
         </div>
