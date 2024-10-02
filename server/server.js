@@ -159,27 +159,24 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
     try {
         const sentimentResult = sentiment.analyze(content);
     console.log('Sentiment Score:', sentimentResult.score);
-
-    if (sentimentResult.score < -5) {
-        return res.status(400).json({ error: 'Comment is too negative' });
-      }
+        
+    //TODO: Use if openai api is down
+    // if (sentimentResult.score < -5) {
+    //     return res.status(400).json({ error: 'Comment is too negative' });
+    //   }
        
         // Send content to OpenAI's Moderation API
-        // const moderation = await openai.moderations.create({
-        //     model: "omni-moderation-latest",
-        //     input: content,
-        // });
+        const moderation = await openai.moderations.create({
+            model: "omni-moderation-latest",
+            input: content,
+        });
 
-           // Mock OpenAI moderation response for development
-           const moderation = {
-            results: [{ flagged: false }] //no flagging for now
-        };
 
         //  Check moderation response
         const flagged = moderation.results[0].flagged; // Check if content is flagged
 
         if (flagged) {
-            return res.status(400).json({ error: 'Comment contains inappropriate content and was flagged.' });
+            return res.status(200).json({ message: 'Comment was flagged as inappropriate.', flagged: true });
         }
 
         //  If not flagged, insert comment into the database
@@ -230,23 +227,32 @@ app.get('/api/posts/:postId/speech', async (req, res) => {
         }
 
         const postContent = rows[0].content;
-
+        console.log(postContent)
+        if (typeof postContent !== 'string' || postContent.trim() === '') {
+            return res.status(400).json({ error: 'Post content is not a valid string.' });
+        }
+       
         // Step 2: Call OpenAI's Text-to-Speech API
         const response = await openai.audio.speech.create({
             model: 'tts-1', 
             voice: "alloy",
-            input: postContent, 
+            input: postContent
         });
+        // console.log('OpenAI TTS Response:', response);
+        // console.log(response.body)
+        const audioData = await response.arrayBuffer();
 
-        const audioData = response.data.audio_content;
+        if (!audioData) {
+            return res.status(500).json({ error: 'Failed to generate speech: No audio content returned.' });
+        }
 
         // Step 3: Send the audio content back to the client
         res.set({
             'Content-Type': 'audio/mpeg',
-            'Content-Length': audioData.length,
+            'Content-Length': audioData.byteLength,
         });
 
-        res.send(Buffer.from(audioData, 'base64'));
+        res.send(Buffer.from(audioData));
     } catch (error) {
         console.error('Error generating speech for post:', error.message);
         res.status(500).json({ error: 'Failed to generate speech' });
@@ -254,55 +260,7 @@ app.get('/api/posts/:postId/speech', async (req, res) => {
 });
 
 
-//TODO: alternative request set up 
-// AI moderation for comments
-// app.post('/api/posts/:postId/comments', async (req, res) => {
-//     const { content, author } = req.body;
-//     const { postId } = req.params;
 
-//     if (!content || !author) {
-//         return res.status(400).json({ error: 'Content and author are required.' });
-//     }
-
-//     try {
-//         // Step 1: Moderate the comment using the OpenAI Moderation API
-//         const moderationResponse = await fetch('https://api.openai.com/v1/moderations', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-//             },
-//             body: JSON.stringify({ input: content }),
-//         });
-
-//         if (!moderationResponse.ok) {
-//             throw new Error('Failed to call OpenAI Moderation API');
-//         }
-
-//         const moderationData = await moderationResponse.json();
-//         const flagged = moderationData.results[0].flagged;
-
-//         if (flagged) {
-//             return res.status(400).json({ error: 'Comment contains inappropriate content and was flagged.' });
-//         }
-
-//         // Step 2: If not flagged, insert comment into the database
-//         const result = await db.query(
-//             'INSERT INTO comments (post_id, content, author) VALUES ($1, $2, $3) RETURNING *',
-//             [postId, content, author]
-//         );
-
-//         res.status(201).json(result.rows[0]);
-
-//     } catch (error) {
-//         console.error('Error creating comment:', error);
-//         res.status(500).json({
-//             error: 'Failed to create comment',
-//             message: error.message,
-//             operation: 'POST /api/posts/:postId/comments'
-//         });
-//     }
-// });
 
 
 

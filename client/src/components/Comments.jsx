@@ -48,9 +48,17 @@ const [newAuthor, setNewAuthor] = useState('')
       }
 
       const newCommentData = await response.json();
+
+      //if comment was flagged by ai moderation show alert message and don't post
+      if (newCommentData.flagged) {
+        alert('Your comment was flagged as inappropriate and cannot be posted.');
+        return; 
+      } else {
+
       setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment(''); // Clear comment field
       setNewAuthor(''); // Clear author field
+      }
     } catch (error) {
       console.error('Error adding comment:', error.message);
     }
