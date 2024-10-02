@@ -31,7 +31,7 @@
     text-decoration: none;
     color: var(--primary-text); 
     font-weight: bold;
-    font-size: 18px; 
+    font-size: 20px; 
     transition: color 0.3s ease, transform 0.3s ease; 
     padding: 5px 10px;
     position: relative;
