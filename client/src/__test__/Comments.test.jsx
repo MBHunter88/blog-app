@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Comments from '../components/Comments'; // Adjust the import path if needed
+import Comments from '../components/Comments'; 
 import { vi, describe, expect, it, beforeEach } from 'vitest';
 
 
