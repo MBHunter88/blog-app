@@ -36,7 +36,7 @@ app.use(express.json());
 //READ posts
 app.get('/api/posts', async (req, res) => {
     try {
-        const { rows: posts } = await db.query('SELECT * FROM posts');
+        const { rows: posts } = await db.query('SELECT * FROM posts ORDER BY date');
         res.send(posts);
     } catch (error) {
         res.status(500).json({
@@ -235,7 +235,7 @@ app.get('/api/posts/:postId/speech', async (req, res) => {
         // Step 2: Call OpenAI's Text-to-Speech API
         const response = await openai.audio.speech.create({
             model: 'tts-1', 
-            voice: "alloy",
+            voice: "shimmer",
             input: postContent
         });
         // console.log('OpenAI TTS Response:', response);
