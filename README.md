@@ -17,6 +17,7 @@ The project features:
 - [Requirements](#requirements)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Design](#design)
 - [Demo](#Demo)
 - [Setup](#setup)
 - [Running Tests](#running-tests)
@@ -89,6 +90,13 @@ Pull Request Requirements
 - **Database**: PostgreSQL
 - **AI Integration**: OpenAI API (Moderation, Text-to-Speech)
 - **Testing**: Vitest, Testing Library
+
+## Design
+
+### Wireframe
+![Wireframe](blogwireframe.png)
+### Database Schema
+![DBSchema](blog_db.png)
 
 ## Demo
 
