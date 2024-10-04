@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Comments from './Comments';
+import '../styles/PostDetail.css'
 
 const PostDetails = () => {
     const { postId } = useParams();
@@ -50,20 +51,22 @@ const handleGenerateSpeech = async () => {
 
 
     return (
-        <>
-        <div className="post-details-card">
-              <h2>{postById.title}</h2>
-              <p><strong>Author:</strong> {postById.author}</p>
-              <p>{postById.content}</p>
-              <button onClick={handleGenerateSpeech} >Read Post Aloud</button>
-              {audioUrl && (
-        <div>
-          <audio controls src={audioUrl}></audio>
-        </div>
+        <div className='post-detail-container'>
+       <div className="post-details-card">
+        <h2 className="post-title">{postById.title}</h2>
+        <p className="post-author"><strong>Author:</strong> {postById.author}</p>
+        <p className="post-content">{postById.content}</p>
+        <button className="speech-button" onClick={handleGenerateSpeech}>Read Post Aloud</button>
+        {audioUrl && (
+          <div className="audio-player">
+            <audio controls src={audioUrl}></audio>
+          </div>
         )}
-            </div>
-            <div><Comments selectedPost={postId}/></div>
-        </>
+      </div>
+      <div>
+        <Comments selectedPost={postId} />
+      </div>
+        </div>
     )
 }
 

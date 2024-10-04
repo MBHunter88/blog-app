@@ -1,9 +1,7 @@
-//display list of posts as cards
-//each card will include: titile, excerpt (maybe image)
-//card will have a button to "read more" that will render full blog post (PostDetail.jsx)
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CreatePost from './CreatePost';
+import '../styles/BlogPosts.css'
 
 const BlogPosts = () => {
     //state management
@@ -36,20 +34,20 @@ const BlogPosts = () => {
  
    
     return (
-        <div>
-      <h1>Blog Posts</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>By {post.author}</p>
-            <Link to={`/posts/${post.id}`}>Read More</Link><br/>
-            <button onClick={() => deletePost(post.id)}>Delete</button>
-          </li>
-        ))}
+      <div className="blog-posts-page">
+      <h1 className="page-title">Latest Posts</h1>
+      <ul className="posts-list">
+          {posts.map((post) => (
+              <li key={post.id} className="post-item">
+                  <h2 className="post-title">{post.title}</h2>
+                  <p className="post-author">By {post.author}</p>
+                  <Link to={`/posts/${post.id}`} className="read-more">Read More</Link><br/>
+                  <button aria-label="trash-outline" className="delete-button" onClick={() => deletePost(post.id)} ><ion-icon name="trash-outline"></ion-icon></button>
+              </li>
+          ))}
       </ul>
       <CreatePost addNewPost={addNewPost}/>
-    </div>
+  </div>
     )
 };
 

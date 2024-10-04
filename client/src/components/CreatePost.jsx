@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/CreatePost.css'
 
 const CreatePost = ({ addNewPost }) => {
   const [title, setTitle] = useState('');
@@ -42,21 +43,21 @@ const CreatePost = ({ addNewPost }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      </label>
-      <label>
-        Content:
-        <textarea value={content} onChange={(e) => setContent(e.target.value)} required />
-      </label>
-      <label>
-        Author:
-        <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
-      </label>
-      <button type="submit">Create Post</button>
-    </form>
+    <form onSubmit={handleSubmit} className="create-post-form">
+    <label className="form-label">
+      Title:
+      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required className="form-input" />
+    </label>
+    <label className="form-label">
+      Content:
+      <textarea value={content} onChange={(e) => setContent(e.target.value)} required className="form-textarea" />
+    </label>
+    <label className="form-label">
+      Author:
+      <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} className="form-input" />
+    </label>
+    <button type="submit" className="submit-button">Create Post</button>
+  </form>
   );
 };
 

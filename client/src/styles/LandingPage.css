@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Shadows+Into+Light&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+.nothing-you-could-do-regular {
+  font-family: "Nothing You Could Do", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.source-code-pro{
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.landing-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Split image sections */
+.split-image {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background-image: url('blog-background.png');
+  background-size: 200% 100%;
+  background-position: center;
+  transition: transform 2s ease-in-out;
+}
+
+.left-side {
+  left: 0;
+  background-position: left;
+}
+
+.right-side {
+  right: 0;
+  background-position: right;
+}
+
+/* Move the split sections off-screen when active */
+.landing-page.active .left-side {
+  transform: translateX(-100%);
+}
+
+.landing-page.active .right-side {
+  transform: translateX(100%);
+}
+
+/* Content that fades in */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.landing-page.active .content {
+  opacity: 1;
+}
+
+/* Background reappears with low opacity after the split */
+.landing-page.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('blog-background.png'); 
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  z-index: 0; /* Keep it behind the content */
+  transition: opacity 1s ease-in-out 1s; /* Delay to show after split */
+}
+
+/* Make background reappear with lower opacity */
+.landing-page.active::before {
+  opacity: 0.2;
+}
+
+.welcome-msg {
+  background-color: #f8e6d9;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  border-radius: 50%;
+  margin: 0 auto;
+  max-width: auto;
+  min-height: max-content;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-msg h2 {
+ 
+  font-size: 28px;
+  color: #555;
+  padding-top: 50px;
+  text-align: center;
+  margin: auto;
+  margin-top:50px;
+  max-width: 80%;
+}
+
+.welcome-msg p {
+  font-family: "Shadows Into Light";
+  font-weight: 800;
+  font-size: 20px;
+  color: #464443;
+  max-width: 80%;
+  text-align: center;
+  margin: auto;
+  padding-top: 20px;
+  margin-bottom:50px;
+  padding-bottom: 50px;
+}
+
+.welcome-msg a {
+ margin: auto;
+ text-align: center;
+  margin-top: 15px;
+  color: #13729a;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.welcome-msg a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
