@@ -11,7 +11,7 @@ The project features:
 - Sentiment analysis to gauge the tone of each comment.
 - A "Text-to-Speech" feature that reads posts aloud using the OpenAI API.
 - Responsive design with clean, accessible user interfaces.
-- Tests for key components using `Vitest` and `Testing Library`.
+- Tests for key components using `Vitest` and `React Testing Library`.
 
 ## Table of Contents
 - [Requirements](#requirements)
@@ -79,10 +79,6 @@ Pull Request Requirements
 - Collapsible comment sections with smooth animations.
 - Add, delete, and view comments on individual posts.
 
-### Admin Features:
-- Create and manage blog posts.
-- Full CRUD capabilities on comments and posts.
-- Clear error handling for moderation and comment posting.
 
 ## Technologies Used
 
@@ -177,6 +173,7 @@ npm run coverage
 
 ### AI Features
 - `GET /api/posts/:postId/speech`: Generate Text-to-Speech audio for a specific post.
+- `POST /api/posts/:postId/comments` : Add a commment to a specific blog post that can be flagged for inappropriate content. 
 
 ## Contributing
 
