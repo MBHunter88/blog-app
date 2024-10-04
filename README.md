@@ -19,6 +19,7 @@ The project features:
 - [Technologies Used](#technologies-used)
 - [Design](#design)
 - [Demo](#Demo)
+- [Testing](#testing)
 - [Setup](#setup)
 - [Running Tests](#running-tests)
 - [API Endpoints](#api-endpoints)
@@ -101,6 +102,12 @@ Pull Request Requirements
 ## Demo
 
 ![Screenshot](Screenshot.png)
+
+## Testing
+
+Test coverage includes unit tests for React components. The coverage goal for this project was 75%. 
+
+![TestingCoverage](Testing_Coverage.png)
 
 ## Setup
 
