@@ -14,7 +14,7 @@ The project features:
 - Tests for key components using `Vitest` and `Testing Library`.
 
 ## Table of Contents
-
+- [Requirements](#requirements)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Demo](#Demo)
@@ -22,6 +22,45 @@ The project features:
 - [Running Tests](#running-tests)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
+
+## Project Requirements
+
+This project involves building a full-stack blog app to showcase your skills in creating and managing web applications. The blog should include at least 3 posts stored in a PostgreSQL database and an AI-powered feature of your choice.
+
+### Core Concepts
+- By the end of the project, you should be comfortable with:
+
+- React: props, state, callback functions, component reuse
+
+- CRUD Operations: Create, Read, Update, Delete blog posts and comments
+
+- SQL: Creating and joining tables, searching for data, using Postgres
+
+- Routing: Both on the frontend and backend
+
+- Styling: Ensure your app is well-designed with CSS
+
+- Testing: Add at least one test to your React components
+
+### Key Features
+
+Backend:
+
+- Use PostgreSQL and Express to manage and connect the database.
+- All data should come from the database, no hardcoding on the frontend.
+- Include a seed file with at least 3 posts.
+
+Frontend:
+- Display a list of blog posts.
+- Include a form to create new blog entries with required and optional fields.
+- Allow users to view individual post details.
+- Add reusable components.
+- AI Feature: Choose and implement one AI feature.
+
+Pull Request Requirements
+- Ensure the PR is clean and only includes relevant project files.
+- Include a .gitignore to exclude unnecessary files like node_modules.
+- Provide a detailed top-level README file.
 
 ## Features
 
