@@ -99,6 +99,8 @@ Pull Request Requirements
 
 ![Screenshot](Screenshot.png)
 
+![Gif](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3g3dm9sZTY1aWRsNGFjeGw0NjZzbGt3dm1kNjN0Mm5wZm5rcGhzdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UBKvYpWg0YdlD1Q27W/giphy.gif)
+
 [Link to Full Demo on YouTube](https://www.youtube.com/watch?v=ielfp3nv5xc)
 
 
