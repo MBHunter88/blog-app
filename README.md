@@ -11,16 +11,57 @@ The project features:
 - Sentiment analysis to gauge the tone of each comment.
 - A "Text-to-Speech" feature that reads posts aloud using the OpenAI API.
 - Responsive design with clean, accessible user interfaces.
-- Tests for key components using `Vitest` and `Testing Library`.
+- Tests for key components using `Vitest` and `React Testing Library`.
 
 ## Table of Contents
-
+- [Requirements](#requirements)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Design](#design)
+- [Demo](#Demo)
 - [Setup](#setup)
 - [Running Tests](#running-tests)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
+
+## Project Requirements
+
+This project involves building a full-stack blog app to showcase your skills in creating and managing web applications. The blog should include at least 3 posts stored in a PostgreSQL database and an AI-powered feature of your choice.
+
+### Core Concepts
+- By the end of the project, you should be comfortable with:
+
+- React: props, state, callback functions, component reuse
+
+- CRUD Operations: Create, Read, Update, Delete blog posts and comments
+
+- SQL: Creating and joining tables, searching for data, using Postgres
+
+- Routing: Both on the frontend and backend
+
+- Styling: Ensure your app is well-designed with CSS
+
+- Testing: Add at least one test to your React components
+
+### Key Features
+
+Backend:
+
+- Use PostgreSQL and Express to manage and connect the database.
+- All data should come from the database, no hardcoding on the frontend.
+- Include a seed file with at least 3 posts.
+
+Frontend:
+- Display a list of blog posts.
+- Include a form to create new blog entries with required and optional fields.
+- Allow users to view individual post details.
+- Add reusable components.
+- AI Feature: Choose and implement one AI feature.
+
+Pull Request Requirements
+- Ensure the PR is clean and only includes relevant project files.
+- Include a .gitignore to exclude unnecessary files like node_modules.
+- Provide a detailed top-level README file.
 
 ## Features
 
@@ -37,10 +78,6 @@ The project features:
 - Collapsible comment sections with smooth animations.
 - Add, delete, and view comments on individual posts.
 
-### Admin Features:
-- Create and manage blog posts.
-- Full CRUD capabilities on comments and posts.
-- Clear error handling for moderation and comment posting.
 
 ## Technologies Used
 
@@ -49,6 +86,22 @@ The project features:
 - **Database**: PostgreSQL
 - **AI Integration**: OpenAI API (Moderation, Text-to-Speech)
 - **Testing**: Vitest, Testing Library
+
+## Design
+
+### Wireframe
+![Wireframe](blogwireframe.png)
+### Database Schema
+![DBSchema](blog_db.png)
+
+## Demo
+
+![Screenshot](Screenshot.png)
+
+![Gif](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3g3dm9sZTY1aWRsNGFjeGw0NjZzbGt3dm1kNjN0Mm5wZm5rcGhzdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UBKvYpWg0YdlD1Q27W/giphy.gif)
+
+[Link to Full Demo on YouTube](https://www.youtube.com/watch?v=ielfp3nv5xc)
+
 
 
 ## Setup
@@ -116,6 +169,7 @@ npm run coverage
 
 ### AI Features
 - `GET /api/posts/:postId/speech`: Generate Text-to-Speech audio for a specific post.
+- `POST /api/posts/:postId/comments` : Add a commment to a specific blog post that can be flagged for inappropriate content. 
 
 ## Contributing
 
