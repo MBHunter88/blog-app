@@ -17,6 +17,7 @@ The project features:
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Demo](#Demo)
 - [Setup](#setup)
 - [Running Tests](#running-tests)
 - [API Endpoints](#api-endpoints)
@@ -50,6 +51,9 @@ The project features:
 - **AI Integration**: OpenAI API (Moderation, Text-to-Speech)
 - **Testing**: Vitest, Testing Library
 
+## Demo
+
+![Screenshot](Screenshot.png)
 
 ## Setup
 
