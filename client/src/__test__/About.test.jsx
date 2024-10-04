@@ -11,7 +11,7 @@ describe('About Component', () => {
    expect(screen.getByRole('heading', { level: 3 })).toBeDefined(/Let's Connect!/i);
 
     // Check for paragraph text
-    expect(screen.getByText(/Lorem ipsum dolor sit amet/i)).toBeTruthy();
+    expect(screen.getByText(/I was born in Los Angeles/i)).toBeTruthy();
 
     //Check for the image alt text
     const img = screen.getByAltText(/headshot/i);

@@ -8,13 +8,16 @@ const About = () => {
       <h1>About Me... </h1>
       <div className="about-content">
         <div className="about-text">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet consectetur mi. Nam auctor dolor a odio dictum,
-             in congue felis bibendum. Nulla facilisi. Mauris hendrerit magna ac risus varius, ac convallis orci vehicula. Integer 
-             dictum est sit amet metus consectetur, sed egestas felis congue. Curabitur fermentum turpis sed nisl tristique, et aliquam 
-             sapien lobortis. Aliquam erat volutpat. Donec vehicula ligula orci, in accumsan arcu volutpat vitae. Pellentesque convallis, 
-             est eget cursus faucibus, sem nunc malesuada dui, in egestas felis felis sit amet ex. Sed in odio at quam vehicula fringilla. 
-             Proin rhoncus magna sed feugiat mollis. Nulla mollis turpis a risus faucibus, eget convallis eros tristique. Nam sit amet mi eu 
-             orci fringilla luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          <p>I was born in Los Angeles and grew up in Compton, CA. 
+            After many attempts at traditional higher education, 
+            I decided to take a different route and enter the field of childcare. 
+            Starting off as a nanny, I eventually evolved into a Household Manager 
+            and later pivoted into birth work, becoming a postpartum doula. 
+            These roles allowed me to support families in meaningful ways and build 
+            lasting relationships. While working in this field, 
+            I met my wife, and we are currently planning to grow our family.
+             Additionally, I have been involved in community initiatives focused on 
+             supporting new parents and advocating for better maternal care.
           </p>
         </div>
         <div className="about-image">
