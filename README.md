@@ -1,0 +1,128 @@
+
+# Doula to Developer Blog
+
+## Overview
+
+Welcome to the **Doula to Developer Blog**, a personal journey blog documenting the transition from a birth worker to a software developer. This blog showcases my experiences, challenges, and the lessons I’ve learned throughout my career change.
+
+The project features:
+- Full CRUD operations for blog posts and comments.
+- AI-powered content moderation using OpenAI's Moderation API for comments.
+- Sentiment analysis to gauge the tone of each comment.
+- A "Text-to-Speech" feature that reads posts aloud using the OpenAI API.
+- Responsive design with clean, accessible user interfaces.
+- Tests for key components using `Vitest` and `Testing Library`.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup](#setup)
+- [Running Tests](#running-tests)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+
+## Features
+
+### Blog Features:
+- Users can create and read blog posts.
+- Each post has a detailed view, including author, title, and content.
+- Posts can be read aloud using the OpenAI Text-to-Speech API.
+- Visitors can comment on blog posts.
+- Comment moderation is powered by OpenAI to filter inappropriate content.
+
+### Comment Features:
+- AI moderation to block inappropriate comments.
+- Sentiment analysis to display comment tone.
+- Collapsible comment sections with smooth animations.
+- Add, delete, and view comments on individual posts.
+
+### Admin Features:
+- Create and manage blog posts.
+- Full CRUD capabilities on comments and posts.
+- Clear error handling for moderation and comment posting.
+
+## Technologies Used
+
+- **Frontend**: React, CSS
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL
+- **AI Integration**: OpenAI API (Moderation, Text-to-Speech)
+- **Testing**: Vitest, Testing Library
+
+
+## Setup
+
+To run this project locally, follow these steps:
+
+1. **Clone the repository**:
+    ```bash
+    git clone git@github.com:MBHunter88/blog-app.git
+    cd blog-app
+    ```
+
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3. **Set up environment variables**:  
+   Create a `.env` file in the root directory and add the following values:
+    ```bash
+    DATABASE_URI=your_postgres_database_url
+    OPENAI_API_KEY=your_openai_api_key
+    PORT=8181
+    ```
+
+4. **Run database migrations**:  
+   Ensure your PostgreSQL server is running and execute:
+    ```bash
+    npm run migrate
+    ```
+
+5. **Start the development server**:
+    ```bash
+    npm run dev
+    ```
+
+The blog will now be accessible at `http://localhost:8181`.
+
+## Running Tests
+
+This project uses `Vitest` for unit and integration tests. To run the tests:
+
+```bash
+npm run test
+```
+
+To check test coverage:
+
+```bash
+npm run coverage
+```
+
+## API Endpoints
+
+### Posts
+- `GET /api/posts`: Fetch all blog posts.
+- `GET /api/posts/:postId`: Fetch a specific blog post by ID.
+- `POST /api/posts`: Create a new blog post.
+- `DELETE /api/posts/:postId`: Delete a specific blog post by ID.
+
+### Comments
+- `GET /api/comments/:postId`: Fetch comments for a specific blog post.
+- `POST /api/posts/:postId/comments`: Add a comment to a specific blog post.
+- `DELETE /api/posts/:postId/comments/:commentId`: Delete a specific comment.
+
+### AI Features
+- `GET /api/posts/:postId/speech`: Generate Text-to-Speech audio for a specific post.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push your branch (`git push origin feature-branch`).
+5. Open a Pull Request.
