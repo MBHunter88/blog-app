@@ -14,7 +14,7 @@ const LandingPage = () => {
             try {
                 const response = await fetch(`${BASE_URL}/api/posts`);
                 const data = await response.json();
-
+                console.log('Fetched data:', data);
                 setFeaturedPost(data[0]);
                 // Trigger the animation once the post is fetched
                 setTimeout(() => {
