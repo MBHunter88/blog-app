@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import CreatePost from './CreatePost';
 import '../styles/BlogPosts.css'
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const BlogPosts = () => {
     //state management
     const [posts, setPosts] = useState([]);
@@ -11,7 +13,7 @@ const BlogPosts = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://localhost:8181/api/posts`);
+                const response = await fetch(`${BASE_URL}/api/posts`);
                 const data = await response.json();
                 setPosts(data);
             } catch (error) {
@@ -28,7 +30,7 @@ const BlogPosts = () => {
 
     // Delete post
     const deletePost = async (postId) => {
-      await fetch(`http://localhost:8181/posts/${postId}`, { method: 'DELETE' });
+      await fetch(`${BASE_URL}/posts/${postId}`, { method: 'DELETE' });
       setPosts(posts.filter(post => post.id !== postId));
   }
  

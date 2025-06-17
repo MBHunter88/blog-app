@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Comments from './Comments';
 import '../styles/PostDetail.css'
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const PostDetails = () => {
     const { postId } = useParams();
 const [postById, setPostById] = useState({});

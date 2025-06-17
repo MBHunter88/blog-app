@@ -1,6 +1,8 @@
  import React, { useEffect, useState } from "react";
  import '../styles/Comments.css'
 
+ const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
 const [newComment, setNewComment] = useState('')
@@ -10,7 +12,7 @@ const [isExpanded, setIsExpanded] = useState(false);
     useEffect(() => {
         const fetchCommentsByPostId = async () => {
           try {
-            const response = await fetch(`http://localhost:8181/api/comments/${selectedPost}`);
+            const response = await fetch(`${BASE_URL}/api/comments/${selectedPost}`);
             const data = await response.json();
             console.log('Fetched comments post by ID:', data);
             if (data.length > 0) {
@@ -37,7 +39,7 @@ const [isExpanded, setIsExpanded] = useState(false);
     }
 
     try {
-      const response = await fetch(`http://localhost:8181/api/posts/${selectedPost}/comments`, {
+      const response = await fetch(`${BASE_URL}/api/posts/${selectedPost}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +78,7 @@ const [isExpanded, setIsExpanded] = useState(false);
 //delete comment
 const deleteComment = async (commentId, postId) => {
     try {
-      await fetch(`http://localhost:8181/api/posts/${postId}/comments/${commentId}`, { method: 'DELETE' });
+      await fetch(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`, { method: 'DELETE' });
       setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
     } catch (error) {
       console.error('Error deleting comment:', error);

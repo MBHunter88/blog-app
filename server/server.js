@@ -30,7 +30,9 @@ const speechFile = path.resolve("./speech.mp3");
 const PORT = process.env.PORT;
 
 //config cors middleware
-app.use(cors());
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Replace with your frontend URL
+}));
 app.use(express.json());
 
 //READ posts
@@ -161,9 +163,9 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
     console.log('Sentiment Score:', sentimentResult.score);
         
     //TODO: Use if openai api is down
-    // if (sentimentResult.score < -5) {
-    //     return res.status(400).json({ error: 'Comment is too negative' });
-    //   }
+    if (sentimentResult.score < -5) {
+        return res.status(400).json({ error: 'Comment is too negative' });
+      }
        
         // Send content to OpenAI's Moderation API
         const moderation = await openai.moderations.create({
@@ -265,7 +267,9 @@ app.get('/api/posts/:postId/speech', async (req, res) => {
 
 
 
-app.listen(PORT, () => console.log(`Server is runnning on port http://localhost:${PORT}`))
+app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
+});
 
 
 

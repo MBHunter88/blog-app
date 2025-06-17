@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/CreatePost.css'
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const CreatePost = ({ addNewPost }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -18,7 +20,7 @@ const CreatePost = ({ addNewPost }) => {
     const newPost = { title, content, author };
 
     try {
-      const response = await fetch('http://localhost:8181/api/posts', {
+      const response = await fetch(`h${BASE_URL}/api/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

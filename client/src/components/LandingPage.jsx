@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/LandingPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const LandingPage = () => {
     const [featuredPost, setFeaturedPost] = useState(null);
     const [animationActive, setAnimationActive] = useState(false);
@@ -10,7 +12,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchFeaturedPost = async () => {
             try {
-                const response = await fetch('http://localhost:8181/api/posts');
+                const response = await fetch(`${BASE_URL}/api/posts`);
                 const data = await response.json();
 
                 setFeaturedPost(data[0]);
