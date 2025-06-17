@@ -2,9 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import CreatePost from '../components/CreatePost';
 import { vi, describe, it, afterEach, expect } from 'vitest';
+import { AuthContext } from '../context/AuthContext';
 
 describe('CreatePost Component', () => {
-  import.meta.env = { VITE_API_URL: 'http://localhost:8181', VITE_API_KEY: 'test' };
+  import.meta.env = { VITE_API_URL: 'http://localhost:8181' };
   const mockAddNewPost = vi.fn();
 
   // Mock fetch function
@@ -21,7 +22,11 @@ describe('CreatePost Component', () => {
 
 
   it('submits the form successfully', async () => {
-    render(<CreatePost addNewPost={mockAddNewPost} />);
+    render(
+      <AuthContext.Provider value={{ token: 'test-token', login: vi.fn(), logout: vi.fn() }}>
+        <CreatePost addNewPost={mockAddNewPost} />
+      </AuthContext.Provider>
+    );
 
     // Fill out form fields
     fireEvent.change(screen.getByLabelText(/title/i), { target: { value: 'New Post' } });
@@ -32,9 +37,15 @@ describe('CreatePost Component', () => {
     fireEvent.click(screen.getByText(/create post/i));
 
     // Check if fetch was called with the right arguments
-    await waitFor(() =>
-      expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/posts`, expect.anything())
-    );
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith(
+        `${import.meta.env.VITE_API_URL}/api/posts`,
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({ Authorization: 'Bearer test-token' })
+        })
+      );
+    });
 
     // Check if addNewPost was called with the created post
     await waitFor(() => {

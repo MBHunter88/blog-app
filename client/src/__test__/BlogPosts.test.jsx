@@ -1,7 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import BlogPosts from '../components/BlogPosts'; 
-import { BrowserRouter } from 'react-router-dom'; 
-import { vi, describe, it, expect, beforeEach} from 'vitest'; 
+import BlogPosts from '../components/BlogPosts';
+import { BrowserRouter } from 'react-router-dom';
+import { vi, describe, it, expect, beforeEach} from 'vitest';
+import { AuthContext } from '../context/AuthContext';
 
 // Mock fetch API
 global.fetch = vi.fn(() =>
@@ -17,18 +18,22 @@ describe('BlogPosts Component', () => {
 
   it('renders without crashing', () => {
     render(
-      <BrowserRouter>
-        <BlogPosts />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ token: '', login: vi.fn(), logout: vi.fn() }}>
+        <BrowserRouter>
+          <BlogPosts />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
     expect(screen.getByRole('heading',{ level: 1 })).toBeDefined(/Latest Post/i);
   });
 
   it('fetches and displays posts', async () => {
     render(
-      <BrowserRouter>
-        <BlogPosts />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ token: '', login: vi.fn(), logout: vi.fn() }}>
+        <BrowserRouter>
+          <BlogPosts />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
     await waitFor(() => {

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CreatePost from './CreatePost';
 import '../styles/BlogPosts.css'
+import { AuthContext } from '../context/AuthContext';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
-const API_KEY = import.meta.env.VITE_API_KEY;
 
 const BlogPosts = () => {
     //state management
     const [posts, setPosts] = useState([]);
+    const { token } = useContext(AuthContext);
    
     // Fetch posts on page load
     useEffect(() => {
@@ -31,10 +32,10 @@ const BlogPosts = () => {
 
     // Delete post
     const deletePost = async (postId) => {
-      await fetch(`${BASE_URL}/posts/${postId}`, {
+      await fetch(`${BASE_URL}/api/posts/${postId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setPosts(posts.filter(post => post.id !== postId));
@@ -54,7 +55,7 @@ const BlogPosts = () => {
               </li>
           ))}
       </ul>
-      <CreatePost addNewPost={addNewPost}/>
+      {token && <CreatePost addNewPost={addNewPost}/>} 
   </div>
     )
 };
