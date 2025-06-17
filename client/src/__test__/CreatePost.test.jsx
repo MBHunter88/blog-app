@@ -4,6 +4,7 @@ import CreatePost from '../components/CreatePost';
 import { vi, describe, it, afterEach, expect } from 'vitest';
 
 describe('CreatePost Component', () => {
+  import.meta.env = { VITE_API_URL: 'http://localhost:8181', VITE_API_KEY: 'test' };
   const mockAddNewPost = vi.fn();
 
   // Mock fetch function
@@ -32,7 +33,7 @@ describe('CreatePost Component', () => {
 
     // Check if fetch was called with the right arguments
     await waitFor(() =>
-      expect(fetch).toHaveBeenCalledWith('http://localhost:8181/api/posts', expect.anything())
+      expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/posts`, expect.anything())
     );
 
     // Check if addNewPost was called with the created post

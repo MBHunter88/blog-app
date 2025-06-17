@@ -23,6 +23,19 @@ const app = express();
 
 const sentiment = new Sentiment()
 
+const API_KEY = process.env.API_KEY;
+
+function authenticate(req, res, next) {
+    if (!API_KEY) {
+        return next();
+    }
+    const authHeader = req.headers.authorization;
+    if (authHeader === `Bearer ${API_KEY}`) {
+        return next();
+    }
+    return res.status(401).json({ error: 'Unauthorized' });
+}
+
 // Initialize OpenAI API with API key
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // Ensure this is in your .env file
@@ -80,7 +93,7 @@ app.get('/api/posts/:postId', async (req, res) => {
 });
 
 //CREATE new blog post
-app.post('/api/posts', async (req, res) => {
+app.post('/api/posts', authenticate, async (req, res) => {
     const { title, content, author } = req.body;
 
     // Validate required fields
@@ -135,7 +148,7 @@ app.get('/api/comments/:postId', async (req, res) => {
 });
 
 //DELETE post by id
-app.delete('/api/posts/:postId', async (req, res) => {
+app.delete('/api/posts/:postId', authenticate, async (req, res) => {
     try {
         const postId = req.params.postId;
         await db.query('DELETE FROM posts WHERE id=$1', [postId]);
@@ -151,7 +164,7 @@ app.delete('/api/posts/:postId', async (req, res) => {
 
 //TODO: Check if original enpoint works once openai servers are back up 
 // AI moderation and sentiment analysis for comments
-app.post('/api/posts/:postId/comments', async (req, res) => {
+app.post('/api/posts/:postId/comments', authenticate, async (req, res) => {
     const { content, author } = req.body;
     const { postId } = req.params;
 
@@ -203,7 +216,7 @@ app.post('/api/posts/:postId/comments', async (req, res) => {
 });
 
 //DELETE comment by id
-app.delete('/api/posts/:postId/comments/:commentId', async (req, res) => {
+app.delete('/api/posts/:postId/comments/:commentId', authenticate, async (req, res) => {
     try {
         const { commentId } = req.params;
         await db.query('DELETE FROM comments WHERE id=$1', [commentId]);

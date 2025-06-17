@@ -4,6 +4,7 @@ import CreatePost from './CreatePost';
 import '../styles/BlogPosts.css'
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const BlogPosts = () => {
     //state management
@@ -30,7 +31,12 @@ const BlogPosts = () => {
 
     // Delete post
     const deletePost = async (postId) => {
-      await fetch(`${BASE_URL}/posts/${postId}`, { method: 'DELETE' });
+      await fetch(`${BASE_URL}/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      });
       setPosts(posts.filter(post => post.id !== postId));
   }
  
@@ -44,7 +50,7 @@ const BlogPosts = () => {
                   <h2 className="post-title">{post.title}</h2>
                   <p className="post-author">By {post.author}</p>
                   <Link to={`/posts/${post.id}`} className="read-more">Read More</Link><br/>
-                  <button aria-label="trash-outline" className="delete-button" onClick={() => deletePost(post.id)} ><ion-icon name="trash-outline"></ion-icon></button>
+                  <button aria-label="delete post" className="delete-button" onClick={() => deletePost(post.id)} ><span role="img" aria-label="trash">🗑️</span></button>
               </li>
           ))}
       </ul>
