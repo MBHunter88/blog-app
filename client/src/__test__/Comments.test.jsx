@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Comments from '../components/Comments'; 
+import Comments from '../components/Comments';
 import { vi, describe, expect, it, beforeEach } from 'vitest';
+import { AuthContext } from '../context/AuthContext';
 
 
 global.fetch = vi.fn(() =>
@@ -18,7 +19,11 @@ describe('Comments Component', () => {
   });
 
   it('renders the comments section and fetches comments', async () => {
-    render(<Comments selectedPost={1} />);
+    render(
+      <AuthContext.Provider value={{ token: 'test', login: vi.fn(), logout: vi.fn() }}>
+        <Comments selectedPost={1} />
+      </AuthContext.Provider>
+    );
 
     const toggleButton = screen.getByText(/View Comments/i);
     fireEvent.click(toggleButton);
@@ -39,7 +44,11 @@ describe('Comments Component', () => {
       })
     );
 
-    render(<Comments selectedPost={1} />);
+    render(
+      <AuthContext.Provider value={{ token: 'test', login: vi.fn(), logout: vi.fn() }}>
+        <Comments selectedPost={1} />
+      </AuthContext.Provider>
+    );
 
 
   });
@@ -53,7 +62,11 @@ describe('Comments Component', () => {
       })
     );
 
-    render(<Comments selectedPost={1} />);
+    render(
+      <AuthContext.Provider value={{ token: 'test', login: vi.fn(), logout: vi.fn() }}>
+        <Comments selectedPost={1} />
+      </AuthContext.Provider>
+    );
 
   
   });

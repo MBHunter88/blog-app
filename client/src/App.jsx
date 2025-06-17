@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import BlogPosts from './components/BlogPosts';
 import PostDetail from './components/PostDetail';
 import About from './components/About';
+import Login from './components/Login';
 import Navbar from './components/NavBar'; // Navigation bar component
 import './App.css'
 
@@ -16,8 +17,9 @@ const App = () => {
 
         {/* Define the routes */}
         <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/posts" element={<BlogPosts />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/posts" element={<BlogPosts />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/about" element={<About />} />
         </Routes>

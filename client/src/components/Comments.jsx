@@ -1,14 +1,15 @@
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState, useContext } from "react";
  import '../styles/Comments.css'
+ import { AuthContext } from '../context/AuthContext';
 
  const BASE_URL = import.meta.env.VITE_API_URL;
- const API_KEY = import.meta.env.VITE_API_KEY;
 
 const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
 const [newComment, setNewComment] = useState('')
 const [newAuthor, setNewAuthor] = useState('')
 const [isExpanded, setIsExpanded] = useState(false);
+const { token } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchCommentsByPostId = async () => {
@@ -44,7 +45,7 @@ const [isExpanded, setIsExpanded] = useState(false);
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ content: newComment, author: newAuthor }),
       });
@@ -83,7 +84,7 @@ const deleteComment = async (commentId, postId) => {
       await fetch(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));

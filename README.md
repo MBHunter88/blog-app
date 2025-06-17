@@ -127,7 +127,7 @@ To run this project locally, follow these steps:
     API_KEY=your_api_token
     PORT=8181
     ```
-   The `API_KEY` value is required in the `Authorization` header for any request that creates or deletes posts or comments.
+   The `API_KEY` value is used to authenticate admin actions. Once your server is running, visit `/login` and enter this token to enable creating or deleting posts and comments.
 
 4. **Run database migrations**:  
    Ensure your PostgreSQL server is running and execute:
@@ -141,6 +141,10 @@ To run this project locally, follow these steps:
     ```
 
 The blog will now be accessible at `http://localhost:8181`.
+
+### Admin Login
+
+Navigate to `http://localhost:8181/login` and enter the API key you placed in your `.env` file. Once logged in you can create or delete posts and comments from the UI.
 
 ## Running Tests
 
