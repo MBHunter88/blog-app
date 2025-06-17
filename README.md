@@ -159,10 +159,14 @@ npm run coverage
 ## API Endpoints
 
 ### Posts
-- `GET /api/posts`: Fetch all blog posts.
-- `GET /api/posts/:postId`: Fetch a specific blog post by ID.
-- `POST /api/posts`: Create a new blog post.
+- `GET /api/posts`: Fetch all approved blog posts.
+- `GET /api/posts/:postId`: Fetch a specific approved blog post by ID.
+- `POST /api/posts`: Create a new blog post (immediately approved).
+- `POST /api/posts/generate`: Generate a post with OpenAI (requires API key, saved as unapproved).
+- `PATCH /api/posts/:postId/approve`: Approve an unapproved post (requires API key).
 - `DELETE /api/posts/:postId`: Delete a specific blog post by ID.
+
+Newly generated posts are saved as unapproved. Only approved posts appear in public GET requests. Use the approval endpoint to publish AI-generated drafts.
 
 ### Comments
 - `GET /api/comments/:postId`: Fetch comments for a specific blog post.

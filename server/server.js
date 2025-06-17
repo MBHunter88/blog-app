@@ -53,7 +53,7 @@ app.use(express.json());
 //READ posts
 app.get('/api/posts', async (req, res) => {
     try {
-        const { rows: posts } = await db.query('SELECT * FROM posts ORDER BY date');
+        const { rows: posts } = await db.query('SELECT * FROM posts WHERE approved = TRUE ORDER BY date');
         res.send(posts);
     } catch (error) {
         res.status(500).json({
@@ -72,7 +72,7 @@ app.get('/api/posts/:postId', async (req, res) => {
         // Log the postId to verify it's being received correctly
         console.log('Fetching post with ID:', postId);
 
-        const { rows } = await db.query('SELECT * FROM posts WHERE id = $1', [postId]);
+        const { rows } = await db.query('SELECT * FROM posts WHERE id = $1 AND approved = TRUE', [postId]);
 
         // Check if no rows are returned (post not found)
         if (rows.length === 0) {
@@ -103,7 +103,7 @@ app.post('/api/posts', authenticate, async (req, res) => {
 
     try {
         const result = await db.query(
-            'INSERT INTO posts (title, content, author) VALUES ($1, $2, $3) RETURNING *',
+            'INSERT INTO posts (title, content, author, approved) VALUES ($1, $2, $3, TRUE) RETURNING *',
             [title, content, author]
         );
 
@@ -116,6 +116,61 @@ app.post('/api/posts', authenticate, async (req, res) => {
             error: 'Failed to create post',
             message: error.message,
             operation: 'POST /api/posts'
+        });
+    }
+});
+
+// Generate a new blog post using OpenAI and mark as unapproved
+app.post('/api/posts/generate', authenticate, async (req, res) => {
+    try {
+        const completion = await openai.chat.completions.create({
+            model: 'gpt-3.5-turbo',
+            messages: [
+                { role: 'system', content: 'You are a doula turned developer documenting your journey and sharing tips for career changers. Produce a blog post with a title and content in JSON with keys "title" and "content".' }
+            ]
+        });
+
+        const message = completion.choices[0].message.content;
+        let generated;
+        try {
+            generated = JSON.parse(message);
+        } catch (err) {
+            return res.status(500).json({ error: 'Failed to parse AI response' });
+        }
+
+        const { title, content } = generated;
+
+        const result = await db.query(
+            'INSERT INTO posts (title, content, author, approved) VALUES ($1, $2, $3, FALSE) RETURNING *',
+            [title, content, 'AI Assistant']
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error generating post:', error);
+        res.status(500).json({
+            error: 'Failed to generate post',
+            message: error.message,
+            operation: 'POST /api/posts/generate'
+        });
+    }
+});
+
+// Approve an existing post
+app.patch('/api/posts/:postId/approve', authenticate, async (req, res) => {
+    const { postId } = req.params;
+    try {
+        const { rows } = await db.query('UPDATE posts SET approved = TRUE WHERE id = $1 RETURNING *', [postId]);
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json(rows[0]);
+    } catch (error) {
+        console.error('Error approving post:', error);
+        res.status(500).json({
+            error: 'Failed to approve post',
+            message: error.message,
+            operation: 'PATCH /api/posts/:postId/approve'
         });
     }
 });
