@@ -6,6 +6,8 @@ import pkg from 'pg';
 import fs from "fs";
 import path from "path";
 import Sentiment from 'sentiment';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 //use .env for variables
 dotenv.config();
