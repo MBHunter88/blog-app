@@ -6,15 +6,14 @@ echo "Current directory: $(pwd)"
 ls -la
 
 # Install and build the frontend
-cd ../client
+cd /app/client
 npm install
 npm run build
 
 # Copy dist to server folder
-rm -rf ../server/client-dist
-cp -r dist ../server/client-dist
+rm -rf /app/server/client-dist
+cp -r dist /app/server/client-dist
 
-# Go back to root, then into server to install backend deps
-cd ..
-cd server
+# Install backend deps
+cd /app/server
 npm install
