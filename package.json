@@ -1,0 +1,12 @@
+{
+  "name": "queer-conceptions-build-hint",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dummy file so Railway installs Node.js via Nixpacks",
+  "type": "module",
+  "scripts": {
+    "start": "echo 'This is a dummy file for Railway to install Node.js via Nixpacks.'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
