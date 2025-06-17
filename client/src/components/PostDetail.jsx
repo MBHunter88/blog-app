@@ -4,6 +4,7 @@ import Comments from './Comments';
 import '../styles/PostDetail.css'
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const PostDetails = () => {
     const { postId } = useParams();
@@ -14,7 +15,7 @@ const [audioUrl, setAudioUrl] = useState(null);
   useEffect(() => {
     const fetchPostById = async () => {
       try {
-        const response = await fetch(`http://localhost:8181/api/posts/${postId}`);
+        const response = await fetch(`${BASE_URL}/api/posts/${postId}`);
         const data = await response.json();
         console.log('Fetched post by ID:', data);
         setPostById(data);
@@ -32,7 +33,7 @@ const [audioUrl, setAudioUrl] = useState(null);
 // Function to generate speech for the post content
 const handleGenerateSpeech = async () => {
     try {
-      const response = await fetch(`http://localhost:8181/api/posts/${postId}/speech`);
+      const response = await fetch(`${BASE_URL}/api/posts/${postId}/speech`);
 
       if (response.ok) {
         const audioBlob = await response.blob();

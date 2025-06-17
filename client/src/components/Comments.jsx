@@ -2,6 +2,7 @@
  import '../styles/Comments.css'
 
  const BASE_URL = import.meta.env.VITE_API_URL;
+ const API_KEY = import.meta.env.VITE_API_KEY;
 
 const Comments = ({ selectedPost }) => {
 const [comments, setComments] = useState([])
@@ -43,6 +44,7 @@ const [isExpanded, setIsExpanded] = useState(false);
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify({ content: newComment, author: newAuthor }),
       });
@@ -78,7 +80,12 @@ const [isExpanded, setIsExpanded] = useState(false);
 //delete comment
 const deleteComment = async (commentId, postId) => {
     try {
-      await fetch(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`, { method: 'DELETE' });
+      await fetch(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      });
       setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
     } catch (error) {
       console.error('Error deleting comment:', error);

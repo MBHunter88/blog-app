@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/CreatePost.css'
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const CreatePost = ({ addNewPost }) => {
   const [title, setTitle] = useState('');
@@ -20,10 +21,11 @@ const CreatePost = ({ addNewPost }) => {
     const newPost = { title, content, author };
 
     try {
-      const response = await fetch(`h${BASE_URL}/api/posts`, {
+      const response = await fetch(`${BASE_URL}/api/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(newPost),
       });

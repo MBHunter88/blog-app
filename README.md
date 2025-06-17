@@ -124,8 +124,10 @@ To run this project locally, follow these steps:
     ```bash
     DATABASE_URI=your_postgres_database_url
     OPENAI_API_KEY=your_openai_api_key
+    API_KEY=your_api_token
     PORT=8181
     ```
+   The `API_KEY` value is required in the `Authorization` header for any request that creates or deletes posts or comments.
 
 4. **Run database migrations**:  
    Ensure your PostgreSQL server is running and execute:
