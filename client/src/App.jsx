@@ -4,7 +4,7 @@ import LandingPage from './components/LandingPage';
 import BlogPosts from './components/BlogPosts';
 import PostDetail from './components/PostDetail';
 import About from './components/About';
-import Navbar from './components/Navbar'; // Navigation bar component
+import Navbar from './components/NavBar'; // Navigation bar component
 import './App.css'
 
 const App = () => {
