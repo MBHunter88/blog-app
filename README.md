@@ -115,8 +115,11 @@ To run this project locally, follow these steps:
     ```
 
 2. **Install dependencies**:
+    Install packages for both the client and server applications.
     ```bash
-    npm install
+    cd client && npm install
+    cd ../server && npm install
+    cd ..
     ```
 
 3. **Set up environment variables**:
@@ -142,15 +145,17 @@ To run this project locally, follow these steps:
    ```
    The `API_KEY` value is only included in development so you can test admin actions locally. Production builds omit this variable so public deployments cannot access admin routes or UI.
 
-4. **Run database migrations**:  
-   Ensure your PostgreSQL server is running and execute:
+4. **Initialize the database**:
+   Ensure your PostgreSQL server is running and load the schema and seed data:
     ```bash
-    npm run migrate
+    psql -d your_database -f server/db.sql
     ```
 
-5. **Start the development server**:
+5. **Start the development servers**:
+    Run the backend and frontend in separate terminals.
     ```bash
-    npm run dev
+    npm run server --prefix server
+    npm run dev --prefix client
     ```
 
 The blog will now be accessible at `http://localhost:8181`.
