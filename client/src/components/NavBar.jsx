@@ -5,6 +5,7 @@ import styles from '../styles/Navbar.module.css';
 
 const Navbar = () => {
   const { token, logout } = useContext(AuthContext);
+  const isAdminEnabled = import.meta.env.VITE_ADMIN_ENABLED === 'true';
   return (
     <nav className={styles.nav}>
       <ul className={styles.list}>
@@ -17,13 +18,15 @@ const Navbar = () => {
         <li className={styles.item}>
           <Link className={styles.link} to="/about">About/Contact</Link>
         </li>
-        <li className={styles.item}>
-          {token ? (
-            <button className={styles.link} onClick={logout}>Logout</button>
-          ) : (
-            <Link className={styles.link} to="/login">Login</Link>
-          )}
-        </li>
+        {isAdminEnabled && (
+          <li className={styles.item}>
+            {token ? (
+              <button className={styles.link} onClick={logout}>Logout</button>
+            ) : (
+              <Link className={styles.link} to="/login">Login</Link>
+            )}
+          </li>
+        )}
       </ul>
     </nav>
   );

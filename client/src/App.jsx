@@ -9,6 +9,7 @@ import Navbar from './components/NavBar'; // Navigation bar component
 import './App.css'
 
 const App = () => {
+  const isAdminEnabled = import.meta.env.VITE_ADMIN_ENABLED === 'true';
   return (
     <Router>
       <div>
@@ -18,7 +19,7 @@ const App = () => {
         {/* Define the routes */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
+          {isAdminEnabled && <Route path="/login" element={<Login />} />}
           <Route path="/posts" element={<BlogPosts />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/about" element={<About />} />

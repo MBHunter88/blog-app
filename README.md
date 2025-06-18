@@ -119,15 +119,28 @@ To run this project locally, follow these steps:
     npm install
     ```
 
-3. **Set up environment variables**:  
-   Create a `.env` file in the root directory and add the following values:
-    ```bash
-    DATABASE_URI=your_postgres_database_url
-    OPENAI_API_KEY=your_openai_api_key
-    API_KEY=your_api_token
-    PORT=8181
-    ```
-   The `API_KEY` value is used to authenticate admin actions. Once your server is running, visit `/login` and enter this token to enable creating or deleting posts and comments.
+3. **Set up environment variables**:
+   Create environment files for development and production.
+   
+   **.env.development**
+   ```bash
+   DATABASE_URI=your_postgres_database_url
+   OPENAI_API_KEY=your_openai_api_key
+   API_KEY=your_api_token
+   PORT=8181
+   VITE_API_URL=http://localhost:8181
+   VITE_ADMIN_ENABLED=true
+   ```
+   
+   **.env.production**
+   ```bash
+   DATABASE_URI=your_postgres_database_url
+   OPENAI_API_KEY=your_openai_api_key
+   PORT=8181
+   VITE_API_URL=https://your-production-url
+   VITE_ADMIN_ENABLED=false
+   ```
+   The `API_KEY` value is only included in development so you can test admin actions locally. Production builds omit this variable so public deployments cannot access admin routes or UI.
 
 4. **Run database migrations**:  
    Ensure your PostgreSQL server is running and execute:
@@ -144,7 +157,24 @@ The blog will now be accessible at `http://localhost:8181`.
 
 ### Admin Login
 
-Navigate to `http://localhost:8181/login` and enter the API key you placed in your `.env` file. Once logged in you can create or delete posts and comments from the UI.
+If `VITE_ADMIN_ENABLED` is set to `true`, navigate to `/login` and enter the token from `API_KEY` to unlock admin controls. This route and the related UI are removed in production where `VITE_ADMIN_ENABLED=false`.
+
+## Railway Deployment
+
+When deploying on [Railway](https://railway.app/), configure these environment variables:
+
+**Required**
+
+- `DATABASE_URI`
+- `OPENAI_API_KEY`
+- `PORT` (usually `8181`)
+- `VITE_API_URL` (your Railway app URL)
+- `VITE_ADMIN_ENABLED` (`false` for production)
+
+**Optional for development previews**
+
+- `API_KEY` (enables admin routes)
+- Set `VITE_ADMIN_ENABLED` to `true` if you include `API_KEY`
 
 ## Running Tests
 
