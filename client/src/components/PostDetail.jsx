@@ -17,7 +17,9 @@ const [audioUrl, setAudioUrl] = useState(null);
         const response = await fetch(`${BASE_URL}/api/posts/${postId}`);
         const data = await response.json();
         console.log('Fetched post by ID:', data);
-        setPostById(data);
+        // Replace literal \n sequences with actual line breaks
+        const processedContent = data.content?.replace(/\\n/g, '\n');
+        setPostById({ ...data, content: processedContent });
       } catch (error) {
         console.error('Error fetching post:', error.message);
         throw error;
