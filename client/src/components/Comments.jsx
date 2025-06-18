@@ -10,6 +10,7 @@ const [newComment, setNewComment] = useState('')
 const [newAuthor, setNewAuthor] = useState('')
 const [isExpanded, setIsExpanded] = useState(false);
 const { token } = useContext(AuthContext);
+const isAdminEnabled = import.meta.env.VITE_ADMIN_ENABLED === 'true';
 
     useEffect(() => {
         const fetchCommentsByPostId = async () => {
@@ -117,7 +118,9 @@ const deleteComment = async (commentId, postId) => {
                     <p style={{ color: getSentimentColor(comment.sentiment_score)}}>{comment.content}</p>
                     <p><strong>Author:</strong> {comment.author}</p>
                   </li>
-                  <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete</button>
+                  {isAdminEnabled && token && (
+                    <button className="comments-delete-button" onClick={() => deleteComment(comment.id, selectedPost)}>Delete</button>
+                  )}
                 </ul>
               ))
             ) : (

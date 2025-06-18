@@ -10,6 +10,7 @@ const BlogPosts = () => {
     //state management
     const [posts, setPosts] = useState([]);
     const { token } = useContext(AuthContext);
+    const isAdminEnabled = import.meta.env.VITE_ADMIN_ENABLED === 'true';
    
     // Fetch posts on page load
     useEffect(() => {
@@ -51,11 +52,13 @@ const BlogPosts = () => {
                   <h2 className="post-title">{post.title}</h2>
                   <p className="post-author">By {post.author}</p>
                   <Link to={`/posts/${post.id}`} className="read-more">Read More</Link><br/>
-                  <button aria-label="delete post" className="delete-button" onClick={() => deletePost(post.id)} ><span role="img" aria-label="trash">🗑️</span></button>
+                  {isAdminEnabled && token && (
+                    <button aria-label="delete post" className="delete-button" onClick={() => deletePost(post.id)}><span role="img" aria-label="trash">🗑️</span></button>
+                  )}
               </li>
           ))}
       </ul>
-      {token && <CreatePost addNewPost={addNewPost}/>} 
+      {isAdminEnabled && token && <CreatePost addNewPost={addNewPost}/>}
   </div>
     )
 };
