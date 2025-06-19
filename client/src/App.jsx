@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import BlogPosts from './components/BlogPosts';
 import PostDetail from './components/PostDetail';
 import About from './components/About';
+import Resume from './components/Resume';
 import Login from './components/Login';
 import Navbar from './components/NavBar'; // Navigation bar component
 import './App.css'
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/posts" element={<BlogPosts />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
         </Routes>
       </div>
     </Router>

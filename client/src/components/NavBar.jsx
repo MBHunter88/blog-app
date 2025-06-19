@@ -16,6 +16,9 @@ const Navbar = () => {
           <Link className={styles.link} to="/posts">Blog</Link>
         </li>
         <li className={styles.item}>
+          <Link className={styles.link} to="/resume">Resume</Link>
+        </li>
+        <li className={styles.item}>
           <Link className={styles.link} to="/about">About/Contact</Link>
         </li>
         {isAdminEnabled && (
