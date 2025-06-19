@@ -9,8 +9,10 @@ describe('Navbar Component', () => {
     render( <MemoryRouter>
         <NavBar />
       </MemoryRouter>);
-
-   
+    expect(screen.getByRole('link', { name: /home/i })).toBeTruthy();
+    expect(screen.getByRole('link', { name: /blog/i })).toBeTruthy();
+    expect(screen.getByRole('link', { name: /resume/i })).toBeTruthy();
+    expect(screen.getByRole('link', { name: /about\/contact/i })).toBeTruthy();
   });
 
 });
