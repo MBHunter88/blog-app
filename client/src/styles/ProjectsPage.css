@@ -1,0 +1,103 @@
+/* Import Google Fonts for consistent typography */
+@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Shadows+Into+Light&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* Font classes */
+.nothing-you-could-do-regular {
+  font-family: "Nothing You Could Do", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.source-code-pro{
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.projects-page {
+ padding: 50px;
+  background-color: #f7f7f7;
+  background-position: center;
+  background-size: cover;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.page-title {
+ background-color: var(--primary-bg);
+    max-width: 50%;
+    margin:auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  font-family: "Nothing You Could Do", cursive;
+  font-size: 40px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.projects-list {
+  list-style: none;
+  margin: 20px auto;   /* centers inside parent if max-width is set on the page */
+  padding: 0;          /* remove default ul padding */
+  max-width: 900px
+}
+
+.post-item {
+  background-color: #f8e6d9;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 0 0 24px 0;          /* spacing between cards */
+  opacity: 0;
+  transform: translateY(18px);
+  animation: slideIn 420ms ease-out forwards;
+}
+
+.post-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.post-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.post-title {
+  font-size: 1.5rem;
+  color: #111827;
+  font-family: "Nothing You Could Do", cursive;
+  margin-bottom: 0.5rem;
+}
+
+.post-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-family: "Source Code Pro", monospace;
+}
+
+.read-more {
+  display: inline-block;
+  color: #f97316;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
