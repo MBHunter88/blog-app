@@ -1,79 +1,81 @@
-
+/* ========== Post Detail Card (Mobile-first) ========== */
 
 .post-details-card {
   background-color: #fff;
   border: 1px solid #ccc;
-  padding: 30px;
+  padding: 20px;                       /* smaller padding for mobile */
   border-radius: 15px;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: 40px auto;
+  width: 100%;                         /* prevent overflow */
+  max-width: 100%;                     /* mobile-friendly */
+  margin: 20px auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.8s ease-out;
 }
-
 
 .post-details-card:hover {
   transform: translateY(-5px);
   box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-
+/* Title */
 .post-title {
-  font-size: 32px;
+  font-size: 24px;                     /* smaller default for mobile */
   color: #333;
-  margin-bottom: 20px;
-  font-family: "Source Code Pro", monospace; /* Match font style from other pages */
+  margin-bottom: 15px;
+  font-family: "Source Code Pro", monospace;
   text-align: center;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  word-wrap: break-word;               /* prevent overflow from long words */
 }
 
-
+/* Author */
 .post-author {
-  font-size: 18px;
+  font-size: 16px;
   color: #888;
   margin-bottom: 15px;
   font-family: "Shadows Into Light", cursive;
   text-align: center;
 }
 
-
+/* Body Content */
 .post-content {
-  font-size: 20px;
+  font-size: 16px;                     /* mobile-friendly */
   color: #555;
-  line-height: 1.8;
+  line-height: 1.7;
   margin-bottom: 25px;
   white-space: pre-line;
-  text-align: justify;
-  font-family: "Source Code Pro", monospace; /* Font consistency */
+  text-align: left;                    /* justified text can cause overflow */
+  font-family: "Source Code Pro", monospace;
+  overflow-wrap: break-word;
 }
 
-
+/* Read-Aloud Button */
 .speech-button {
-  background-color:var(--main-button-bg);
+  background-color: var(--main-button-bg);
   color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;                     /* scale for mobile */
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: block;
   margin: 0 auto;
 }
 
-
 .speech-button:hover {
   background-color: #2980b9;
-  transform: scale(1.05); /* Slight scale effect on hover */
+  transform: scale(1.05);
 }
 
-
+/* Audio Player */
 .audio-player {
   margin-top: 20px;
   text-align: center;
 }
 
-/* Add subtle animation to the appearance of the card */
+/* Fade-in animation */
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -85,6 +87,29 @@
   }
 }
 
-.post-details-card {
-  animation: fadeIn 0.8s ease-out;
+/* ========== Large Screen Enhancements ========== */
+
+@media (min-width: 768px) {
+  .post-details-card {
+    padding: 30px;
+    max-width: 800px;                 /* desktop layout */
+  }
+
+  .post-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .post-author {
+    font-size: 18px;
+  }
+
+  .post-content {
+    font-size: 20px;
+    text-align: justify;              /* bring back desktop formatting */
+  }
+
+  .speech-button {
+    font-size: 18px;
+  }
 }

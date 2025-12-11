@@ -1,101 +1,116 @@
+/* ========== About Page (Mobile-first) ========== */
+
 .about-page {
-  padding: 50px;
+  padding: 20px;
   background-color: #f8f8f8;
   text-align: center;
 }
 
-.about-page h1, h3 {
-  font-size: 36px;
+/* Titles */
+.about-page h1,
+.about-page h3 {
+  font-size: 28px; /* mobile size */
   color: #13729a;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   font-family: "Source Code Pro", monospace;
+  line-height: 1.3;
 }
 
+/* Content container */
 .about-content {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;        /* stack on mobile */
   align-items: center;
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 40px;
+  padding: 20px;
   background-color: #fff;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  flex-wrap: wrap;
+  gap: 20px;
 }
 
+/* Text section */
 .about-text {
-  font-family: "Shadows Into Light", cursive;;
-  flex: 1;
-  padding: 20px;
+  font-family: "Shadows Into Light", cursive;
+  padding: 10px;
   font-size: 18px;
-  line-height: 1.8;
+  line-height: 1.7;
   color: #555;
   text-align: left;
+  width: 100%;                   /* full width on mobile */
+  max-width: 600px;
 }
 
 .about-text p {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
+/* Image section */
 .about-image {
-  flex: 1;
-  padding: 20px;
+  width: 100%;                   /* full width on mobile */
   max-width: 250px;
+  padding: 10px;
 }
 
 .about-image img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
-/* form {
-  display: flex;
-  flex-direction: column;
-  max-width: 60%;
-  align-items: center;
-  margin: 0px auto;
-  background-color: #f9f9f9;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-} */
-    
-/* form label {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #13729a;
-} */
-
-/* form input {
-  padding: 10px;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  margin-bottom: 15px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-} */
-
-/* Social Icons Section */
+/* Social icons */
 .social-icons {
   margin-top: 30px;
 }
 
 .linkedin-icon {
-  font-size: 60px;
-  color: #0077b5; /* LinkedIn blue */
+  font-size: 50px;
+  color: #0077b5;
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .linkedin-icon:hover {
   color: #005582;
-  transform: scale(1.2); /* Slight zoom on hover */
+  transform: scale(1.2);
+}
+
+/* ========== Tablet & Desktop Layout ========== */
+
+@media (min-width: 768px) {
+  .about-page {
+    padding: 40px;
+  }
+
+  .about-page h1,
+  .about-page h3 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .about-content {
+    flex-direction: row;            /* side-by-side layout on desktop */
+    justify-content: space-between;
+    max-width: 1000px;
+    padding: 40px;
+    gap: 30px;
+  }
+
+  .about-text {
+    flex: 1;
+    padding: 20px;
+    font-size: 20px;
+  }
+
+  .about-image {
+    flex: 1;
+    max-width: 300px;
+    padding: 20px;
+  }
+
+  .linkedin-icon {
+    font-size: 60px;
+  }
 }

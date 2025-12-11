@@ -1,11 +1,11 @@
-.page-title  {
+.page-title {
   display: flex;
   justify-content: center;
-  align-items: center !important; 
-  font-size: 2.5rem;
+  align-items: center;
+  font-size: 2rem;              /* slightly smaller base for mobile */
   text-align: center;
   margin-top: 20px;
-  color: #111827;                      /* dark gray for readability */
+  color: #111827;               /* dark gray for readability */
 }
 
 /* Remove bullets + reset spacing */
@@ -15,52 +15,54 @@
   padding: 15px;
 }
 
-/* Make each card a horizontal "post" */
+/* ========== Project Card (Mobile-first) ========== */
+
+/* Base: mobile – stacked, full-width image */
 .project-item {
   display: flex;
-  flex-direction: row; 
-  text-justify: inter-word;
-  align-items: flex-start !important; 
-  gap: 6px; 
+  flex-direction: column;       /* stack image + text on small screens */
   gap: 1.25rem;
-  align-items: stretch;                /* image & text line up */
+  align-items: stretch;
   padding: 1.25rem;
   margin: 0 0 1.5rem 0;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,.08);
   transition: transform .2s ease, box-shadow .2s ease;
-  
+
+  opacity: 0;
+  transform: translateY(14px);
+  animation: slideIn .42s ease-out forwards;
 }
 
-.post-item:hover {
+/* Hover effect */
+.project-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(0,0,0,.12);
 }
 
-/* Bigger, left-aligned media */
+/* Full-width media on mobile */
 .project-image-wide {
-  width: 50%;                          /* larger image */
-  max-width: 560px;                    /* don't grow too huge on xl screens */
-  aspect-ratio: 16 / 9;                /* consistent crop */
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 10px;
   display: block;
-  flex-shrink: 0;                      /* keep image from shrinking */
 }
 
-/* Right-side text column */
+/* Text column */
 .project-text {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;             /* nicely centered text */
+  justify-content: center;
   text-align: left;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .project-title {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin: 0 0 .5rem 0;
   color: #111827;
 }
@@ -75,46 +77,54 @@
   align-self: flex-start;
   text-decoration: none;
   font-weight: 700;
-  color: #f97316;                      /* your orange accent */
+  color: #f97316;               /* your orange accent */
 }
 
 .project-link:hover {
   text-decoration: underline;
 }
 
-/* Mobile: stack vertically, full-width media */
-@media (max-width: 820px) {
-  .post-item {
-    flex-direction: column;
-    padding: 1rem;
+/* ========== Staggered animation delays ========== */
+.projects-list > li:nth-child(1) .project-item { animation-delay: 80ms; }
+.projects-list > li:nth-child(2) .project-item { animation-delay: 140ms; }
+.projects-list > li:nth-child(3) .project-item { animation-delay: 200ms; }
+.projects-list > li:nth-child(4) .project-item { animation-delay: 260ms; }
+.projects-list > li:nth-child(5) .project-item { animation-delay: 320ms; }
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ========== Tablet / Desktop Layout ========== */
+
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .project-item {
+    flex-direction: row;        /* image left, text right */
   }
 
   .project-image-wide {
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 16 / 9;
+    width: 50%;                 /* larger image on wider screens */
+    max-width: 560px;
+    flex-shrink: 0;
+  }
+
+  .project-text {
+    font-size: 1.1rem;
   }
 
   .project-title {
-    font-size: 1.4rem;
-    margin-top: 1rem;
+    font-size: 1.6rem;
   }
-}
-
-/* Optional: gentle reveal animation */
-.post-item {
-  opacity: 0;
-  transform: translateY(14px);
-  animation: slideIn .42s ease-out forwards;
-}
-.projects-list > li:nth-child(1) { animation-delay: 80ms; }
-.projects-list > li:nth-child(2) { animation-delay: 140ms; }
-.projects-list > li:nth-child(3) { animation-delay: 200ms; }
-.projects-list > li:nth-child(4) { animation-delay: 260ms; }
-.projects-list > li:nth-child(5) { animation-delay: 320ms; }
-
-@keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
-
-@media (prefers-reduced-motion: reduce) {
-  .post-item { animation: none; opacity: 1; transform: none; }
 }
