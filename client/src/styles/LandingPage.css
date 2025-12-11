@@ -28,7 +28,7 @@
 }
 
 /* Split image sections */
-.split-image {
+ /* .split-image {
   position: absolute;
   top: 0;
   height: 100%;
@@ -47,20 +47,21 @@
 .right-side {
   right: 0;
   background-position: right;
-}
+} */
 
 /* Move the split sections off-screen when active */
-.landing-page.active .left-side {
+/* .landing-page.active .left-side {
   transform: translateX(-100%);
 }
 
 .landing-page.active .right-side {
   transform: translateX(100%);
-}
+}  */
 
 /* Content that fades in */
 .content {
   position: absolute;
+  margin: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,7 +75,7 @@
 }
 
 /* Background reappears with low opacity after the split */
-.landing-page.active::before {
+/* .landing-page.active::before {
   content: '';
   position: absolute;
   top: 0;
@@ -85,24 +86,48 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  z-index: 0; /* Keep it behind the content */
-  transition: opacity 1s ease-in-out 1s; /* Delay to show after split */
-}
+  z-index: 0; /* Keep it behind the content 
+  transition: opacity 1s ease-in-out 1s; 
+} */
 
 /* Make background reappear with lower opacity */
-.landing-page.active::before {
-  opacity: 0.2;
+/* .landing-page.active::before {
+  opacity: 0;
+} */
+
+.welcome-msg.minimal-hero {
+  border-radius: 16px;           
+  padding: 64px 28px;
+  max-width: auto;
+  max-height: 720px;
+  width: min(92vw, 900px);
+  background-color: #f8e6d9;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  text-align: center;
+  justify-content: center;
 }
 
-.welcome-msg {
-  background-color: #f8e6d9;
-  border: 1px solid #cccccc;
-  padding: 20px;
-  border-radius: 50%;
-  margin: 0 auto;
-  max-width: auto;
-  min-height: max-content;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+.typing-title {
+  margin: 0 auto 5px;
+  text-align: center;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: .5px;
+  color: #e67e22; 
+  font-family: "Nothing You Could Do", cursive;
+  display: inline-flex;
+  align-items: center;
+}
+
+.typing-text {
+  white-space: nowrap;
+}
+
+/* blinking caret */
+.typing-caret {
+  display: inline-block;
+  margin-left: 4px;
+  animation: blink 0.8s steps(2, start) infinite;
 }
 
 .welcome-msg h2 {
@@ -111,22 +136,25 @@
   color: #555;
   padding-top: 50px;
   text-align: center;
-  margin: auto;
-  margin-top:50px;
+  /* margin: auto;
+  margin-top:50px; */
   max-width: 80%;
 }
 
 .welcome-msg p {
   font-family: "Shadows Into Light";
   font-weight: 800;
-  font-size: 20px;
+  font-size: 24px;
   color: #464443;
   max-width: 80%;
   text-align: center;
   margin: auto;
-  padding-top: 20px;
-  margin-bottom:50px;
-  padding-bottom: 50px;
+  padding: auto;
+}
+
+.welcome-msg strong {
+  color: #13729a;
+  font-weight: 800;
 }
 
 .welcome-msg a {
@@ -142,4 +170,32 @@
 .welcome-msg a:hover {
   color: #2980b9;
   text-decoration: underline;
+}
+
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Excerpt: rotates / fades */
+.excerpt-rotator {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 800;
+  font-size: clamp(18px, 2.2vw, 22px);
+  padding-bottom: 16px;
+  color: #13729a !important;
+  text-align: center;
+  min-height: 1.6em;       /* prevents layout shift between rotations */
+  margin: 10px auto 22px;
+  animation: fadeSwap 4s ease-in-out infinite;
+}
+
+@keyframes fadeSwap {
+  0%   { opacity: 0; transform: translateY(6px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-caret,
+  .excerpt-rotator { animation: none; }
 }
