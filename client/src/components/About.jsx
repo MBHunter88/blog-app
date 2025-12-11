@@ -1,5 +1,3 @@
-import React from 'react';
-
 import '../styles/AboutPage.css'; 
 
 const About = () => {
@@ -8,16 +6,14 @@ const About = () => {
       <h1>About Me... </h1>
       <div className="about-content">
         <div className="about-text">
-          <p>I was born in Los Angeles and grew up in Compton, CA. 
-            After many attempts at traditional higher education, 
-            I decided to take a different route and enter the field of childcare. 
-            Starting off as a nanny, I eventually evolved into a Household Manager 
-            and later pivoted into birth work, becoming a postpartum doula. 
-            These roles allowed me to support families in meaningful ways and build 
-            lasting relationships. While working in this field, 
-            I met my wife, and we are currently planning to grow our family.
-             Additionally, I have been involved in community initiatives focused on 
-             supporting new parents and advocating for better maternal care.
+          <p>I was born in Los Angeles and grew up in Compton, California. 
+            After several attempts at traditional higher education, I found my path in childcare, 
+            where I started as a nanny and grew into a household manager.
+             My work eventually led me to birth care, 
+             where I became a postpartum doula supporting new families during one of the most transformative times in their lives.
+              Along the way, I met my wife, and together we’re planning to grow our family. 
+              Beyond my professional work, I’ve stayed involved in community
+               initiatives that advocate for better maternal care and help parents find support and connection.
           </p>
         </div>
         <div className="about-image">
@@ -26,7 +22,7 @@ const About = () => {
         </div>
       </div>
       <div>
-        <h3>Let's Connect!</h3>
+        <h3>Let&apos;s Connect!</h3>
         <p></p>
         {/* 
         TODO: create database to post contact details

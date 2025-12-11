@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CreatePost from './CreatePost';
 import '../styles/BlogPosts.css'
@@ -45,13 +45,29 @@ const BlogPosts = () => {
    
     return (
       <div className="blog-posts-page">
+        <p className='post-excerpt'>This blog chronicles my unique journey from the world of birth work to the dynamic world of software development.
+                        For years, I dedicated myself to supporting families through one of life’s most transformative experiences—birth.
+                        As a doula, I learned the power of empathy, problem-solving, and resilience.
+                        Now, I’m harnessing those same skills to navigate the tech industry and create innovative solutions for the future.
+                        Here, you’ll find reflections on my transition into tech, insights into the challenges and triumphs I’ve encountered, 
+                        and the lessons I’ve learned along the way. Whether you’re a fellow career-changer or someone simply curious about 
+                        the journey, I’m excited to share this adventure with you.
+                        Let’s build something great together.</p>
       <h1 className="page-title">Latest Posts</h1>
       <ul className="posts-list">
           {posts.map((post) => (
               <li key={post.id} className="post-item">
-                  <h2 className="post-title">{post.title}</h2>
-                  <p className="post-author">By {post.author}</p>
-                  <Link to={`/posts/${post.id}`} className="read-more">Read More</Link><br/>
+                  <h1 className="post-title" to={`/posts/${post.id}`}>{post.title}</h1><br/>
+                  <p className="post-excerpt"> {post.content
+                    ? (() => {
+                        const firstSentence = post.content.split('. ')[0] + '.';
+                        return firstSentence.length > 100
+                          ? firstSentence.slice(0, 100) + '...'
+                          : firstSentence;
+                      })()
+                    : ''}</p>  
+                  {/* <p className="post-author">By {post.author}</p> */}
+                  <Link className="read-more" to={`/posts/${post.id}`}>Read More &rarr;</Link>
                   {isAdminEnabled && token && (
                     <button aria-label="delete post" className="delete-button" onClick={() => deletePost(post.id)}><span role="img" aria-label="trash">🗑️</span></button>
                   )}

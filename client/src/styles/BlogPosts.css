@@ -55,9 +55,9 @@
 }
 
 .posts-list {
-  display: grid; /* Use grid layout */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Create a responsive grid */
-  grid-gap: 20px; /* Gap between grid items */
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr)); 
+  grid-gap: 20px; 
   list-style-type: none;
   padding: 0;
   opacity: 0;
@@ -67,14 +67,18 @@
 }
 
 .post-item {
-  background-color: #f8e6d9;
+  background-color: #f8e6d9bd;
   border: 1px solid #cccccc;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column; 
+  text-justify: inter-word;
+  align-items: flex-start !important; 
+  gap: 6px; 
   
- 
 }
 
 @keyframes slideIn {
@@ -107,6 +111,15 @@
   margin-bottom: 20px;
   font-family: "Shadows Into Light", cursive;
 }
+
+.post-excerpt {
+  font-size: 1.2rem;
+  color: #444;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 
 .read-more {
   font-size: 18px;
